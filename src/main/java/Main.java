@@ -2,7 +2,7 @@ import com.testfairy.uploader.*;
 
 public class Main {
 
-	public static final String API_KEY = "3c0d457a5c1f93315d8e510ab694b82030eebed7";
+	public static final String API_KEY = "7ac85171ea92ad548396846dc4310e1e625fe65a";
 
 	public static void main(String[] args) {
 		Metrics metrics = new Metrics.Builder()

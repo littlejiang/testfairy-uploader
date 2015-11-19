@@ -21,16 +21,22 @@ import java.util.Scanner;
 
 class TestFairyService {
 	private final String serverAddress;
+	private final String userAgent;
 	private final ProxyInfo proxyInfo;
 	private Request request;
 
-	TestFairyService(String serverAddress, ProxyInfo proxyInfo) {
+	TestFairyService(
+		String serverAddress,
+		String userAgent,
+		ProxyInfo proxyInfo
+	) {
 		this.serverAddress = serverAddress;
+		this.userAgent = userAgent;
 		this.proxyInfo = proxyInfo;
 	}
 
 	Request newRequest() {
-		request = new Request(serverAddress, proxyInfo);
+		request = new Request(serverAddress, userAgent, proxyInfo);
 		return request;
 	}
 
@@ -65,10 +71,16 @@ class TestFairyService {
 	static class Request {
 		private final MultipartEntity entity;
 		private final String serverAddress;
+		private final String userAgent;
 		private final ProxyInfo proxyInfo;
 
-		public Request(String address, ProxyInfo proxyInfo) {
+		public Request(
+			String address,
+			String userAgent,
+			ProxyInfo proxyInfo
+		) {
 			this.serverAddress = address;
+			this.userAgent = userAgent;
 			this.proxyInfo = proxyInfo;
 			this.entity = new MultipartEntity();
 		}
@@ -79,6 +91,9 @@ class TestFairyService {
 		}
 
 		public Request addFile(String key, File file) {
+			if (! file.exists())
+				throw new IllegalArgumentException("No file was found at: " + file.getAbsolutePath());
+
 			entity.addPart(key, new FileBody(file));
 			return this;
 		}
@@ -89,7 +104,7 @@ class TestFairyService {
 				proxyInfo.apply(httpClient);
 
 				HttpPost post = new HttpPost(getUploadUrl());
-
+				post.addHeader("User-Agent", userAgent);
 				post.setEntity(entity);
 
 				HttpResponse response = httpClient.execute(post);

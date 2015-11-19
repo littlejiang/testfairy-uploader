@@ -90,12 +90,10 @@ proxy
 		}
 
 		public IosUploader build() {
-//			String serverEndpoint = "http://app.testfairy.com";
-			String serverEndpoint = "http://free.vijay.ca.dev.testfairy.net";
-
 			return new IosUploader(
 				new TestFairyService(
-					serverEndpoint,
+					Config.SERVER_ENDPOINT,
+					Config.HTTP_USER_AGENT,
 					new TestFairyService.ProxyInfo(
 						proxyHost, proxyPort, proxyUser, proxyPassword
 					)
