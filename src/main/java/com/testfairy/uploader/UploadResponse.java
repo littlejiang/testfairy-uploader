@@ -61,4 +61,18 @@ public class UploadResponse {
 	public String iconUrl() {
 		return icon_url;
 	}
+
+	@Override
+	public String toString() {
+		return "UploadResponse{" +
+				"status='" + status + '\'' +
+				", app_name='" + app_name + '\'' +
+				", app_version='" + app_version + '\'' +
+				", file_size='" + file_size + '\'' +
+				", build_url='" + build_url + '\'' +
+				", instrumented_url='" + instrumented_url + '\'' +
+				", invite_testers_url='" + invite_testers_url + '\'' +
+				", icon_url='" + icon_url + '\'' +
+				'}';
+	}
 }

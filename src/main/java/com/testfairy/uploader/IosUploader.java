@@ -108,6 +108,7 @@ public class IosUploader implements Uploader {
 		}
 
 		public IosUploader build() {
+			if (Strings.isEmpty(apiKey)) throw new IllegalArgumentException("API Key is empty. Please goto to https://app.testfairy.com/settings/ and use the API Key found there");
 			if (Strings.isEmpty(ipaPath)) throw new IllegalArgumentException("Path to IPA not set. Call setIpaPath with path to IPA.");
 
 			return new IosUploader(

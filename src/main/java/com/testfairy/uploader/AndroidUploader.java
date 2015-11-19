@@ -163,7 +163,8 @@ public class AndroidUploader implements Uploader {
 		}
 
 		public AndroidUploader build() {
-			if (Strings.isEmpty(apkPath)) throw new IllegalArgumentException("Path to APK is null. Call setApkPath with a valid path to APK.");
+			if (Strings.isEmpty(apiKey)) throw new IllegalArgumentException("API Key is empty. Please goto to https://app.testfairy.com/settings/ and use the API Key found there");
+			if (Strings.isEmpty(apkPath)) throw new IllegalArgumentException("Path to APK is empty. Call setApkPath with a valid path to APK.");
 
 			return new AndroidUploader(
 				new TestFairyService(

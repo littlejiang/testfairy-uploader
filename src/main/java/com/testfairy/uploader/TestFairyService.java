@@ -24,7 +24,6 @@ class TestFairyService {
 	private final String serverAddress;
 	private final String userAgent;
 	private final ProxyInfo proxyInfo;
-	private Request request;
 
 	TestFairyService(
 		String serverAddress,
@@ -37,8 +36,7 @@ class TestFairyService {
 	}
 
 	Request newRequest() {
-		request = new Request(serverAddress, userAgent, proxyInfo);
-		return request;
+		return new Request(serverAddress, userAgent, proxyInfo);
 	}
 
 	static class ProxyInfo {
@@ -124,9 +122,11 @@ class TestFairyService {
 				IOUtils.copy(is, writer, "UTF-8");
 				String responseString = writer.toString();
 
-				System.out.println("post finished " + responseString);
+				UploadResponse fromJson = this.deserializer.fromJson(responseString, UploadResponse.class);
+				if ("ok".equals(fromJson.status())) return fromJson;
 
-				return this.deserializer.fromJson(responseString, UploadResponse.class);
+				FailedUploadResponse failed = deserializer.fromJson(responseString, FailedUploadResponse.class);
+				throw new RuntimeException(failed.message);
 			} catch (Exception exception) {
 				throw new RuntimeException(exception);
 			}

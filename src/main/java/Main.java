@@ -27,7 +27,7 @@ public class Main {
 
 			@Override
 			public void onUploadComplete(UploadResponse build) {
-
+				System.out.println(build.toString());
 			}
 
 			@Override
