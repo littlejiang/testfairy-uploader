@@ -1,5 +1,6 @@
 package com.testfairy.uploader;
 
+import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
@@ -73,6 +74,7 @@ class TestFairyService {
 		private final String serverAddress;
 		private final String userAgent;
 		private final ProxyInfo proxyInfo;
+		private final Gson deserializer;
 
 		public Request(
 			String address,
@@ -83,6 +85,7 @@ class TestFairyService {
 			this.userAgent = userAgent;
 			this.proxyInfo = proxyInfo;
 			this.entity = new MultipartEntity();
+			this.deserializer = new Gson();
 		}
 
 		public Request addString(String key, String value) {
@@ -98,7 +101,7 @@ class TestFairyService {
 			return this;
 		}
 
-		public void upload() {
+		public UploadResponse upload() {
 			try {
 				DefaultHttpClient httpClient = new DefaultHttpClient();
 				proxyInfo.apply(httpClient);
@@ -122,6 +125,8 @@ class TestFairyService {
 				String responseString = writer.toString();
 
 				System.out.println("post finished " + responseString);
+
+				return this.deserializer.fromJson(responseString, UploadResponse.class);
 			} catch (Exception exception) {
 				throw new RuntimeException(exception);
 			}

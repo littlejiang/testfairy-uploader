@@ -54,7 +54,7 @@ public class AndroidUploader implements Uploader {
 					.addString("data-only-wifi", null);			// TODO
 			}
 
-			request.upload();
+			UploadResponse response = request.upload();
 // Signing
 //			request = service.newRequest();
 //			if (options != null) {
@@ -65,7 +65,7 @@ public class AndroidUploader implements Uploader {
 //				proguard_file
 //			}
 
-			if (listener != null) listener.onUploadComplete();
+			if (listener != null) listener.onUploadComplete(response);
 		} catch (Exception exception) {
 			exception.printStackTrace();
 			if (listener != null) listener.onUploadFailed(exception);

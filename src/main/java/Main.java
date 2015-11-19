@@ -26,7 +26,7 @@ public class Main {
 			}
 
 			@Override
-			public void onUploadComplete() {
+			public void onUploadComplete(UploadResponse build) {
 
 			}
 
