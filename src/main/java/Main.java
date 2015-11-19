@@ -26,7 +26,7 @@ public class Main {
 			}
 
 			@Override
-			public void onUploadComplete(UploadResponse build) {
+			public void onUploadComplete(Build build) {
 				System.out.println(build.toString());
 			}
 

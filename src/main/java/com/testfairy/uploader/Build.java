@@ -1,6 +1,6 @@
 package com.testfairy.uploader;
 
-public class UploadResponse {
+public class Build {
 	private final String status;
 	private final String app_name;
 	private final String app_version;
@@ -10,7 +10,7 @@ public class UploadResponse {
 	private final String invite_testers_url;
 	private final String icon_url;
 
-	UploadResponse(
+	Build(
 		String status,
 		String app_name,
 		String app_version,
@@ -64,7 +64,7 @@ public class UploadResponse {
 
 	@Override
 	public String toString() {
-		return "UploadResponse{" +
+		return "Build{" +
 				"status='" + status + '\'' +
 				", app_name='" + app_name + '\'' +
 				", app_version='" + app_version + '\'' +

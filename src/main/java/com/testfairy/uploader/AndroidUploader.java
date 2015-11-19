@@ -54,7 +54,7 @@ public class AndroidUploader implements Uploader {
 					.addString("data-only-wifi", null);			// TODO
 			}
 
-			UploadResponse response = request.upload();
+			Build response = request.upload();
 // Signing
 //			request = service.newRequest();
 //			if (options != null) {

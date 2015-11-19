@@ -99,7 +99,7 @@ class TestFairyService {
 			return this;
 		}
 
-		public UploadResponse upload() {
+		public Build upload() {
 			try {
 				DefaultHttpClient httpClient = new DefaultHttpClient();
 				proxyInfo.apply(httpClient);
@@ -122,7 +122,7 @@ class TestFairyService {
 				IOUtils.copy(is, writer, "UTF-8");
 				String responseString = writer.toString();
 
-				UploadResponse fromJson = this.deserializer.fromJson(responseString, UploadResponse.class);
+				Build fromJson = this.deserializer.fromJson(responseString, Build.class);
 				if ("ok".equals(fromJson.status())) return fromJson;
 
 				FailedUploadResponse failed = deserializer.fromJson(responseString, FailedUploadResponse.class);

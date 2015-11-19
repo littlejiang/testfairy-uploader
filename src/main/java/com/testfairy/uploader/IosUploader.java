@@ -56,7 +56,7 @@ public class IosUploader implements Uploader {
 					.addString("data-only-wifi", null);			// TODO
 			}
 
-			UploadResponse response = request.upload();
+			Build response = request.upload();
 
 			if (listener != null) listener.onUploadComplete(response);
 		} catch (Exception exception) {
