@@ -22,170 +22,170 @@ video-only-wifi - This option can be used in cases where you wish not to use the
 anonymous - When using this option, sessions are anonymous and account information is not collected from device.
 */
 public class Options {
-	public static class Builder {
-		private ArrayList<String> testers;
-		private boolean notify;
-		private boolean anonymous;
-		private boolean autoUpdate;
-		private boolean watermarkIcon;
-		private Metrics metrics;
-		private String maxDuration;
-		private String comment;
-		private String videoRecording;
-		private String videoQuality;
-		private float framesPerSecond;
+    public static class Builder {
+        private ArrayList<String> testers;
+        private boolean notify;
+        private boolean anonymous;
+        private boolean autoUpdate;
+        private boolean watermarkIcon;
+        private Metrics metrics;
+        private String maxDuration;
+        private String comment;
+        private String videoRecording;
+        private String videoQuality;
+        private float framesPerSecond;
 
-		public Builder() {
-			this.notify = true;
-			this.anonymous = false;
-			this.maxDuration = "10m";
-			this.videoRecording = "on";
-			this.framesPerSecond = 1.0f;
-			this.autoUpdate = false;
-			this.watermarkIcon = false;
-			this.videoQuality = "high";
-		}
+        public Builder() {
+            this.notify = true;
+            this.anonymous = false;
+            this.maxDuration = "10m";
+            this.videoRecording = "on";
+            this.framesPerSecond = 1.0f;
+            this.autoUpdate = false;
+            this.watermarkIcon = false;
+            this.videoQuality = "high";
+        }
 
-		public Builder addTesterGroup(String group) {
-			if (this.testers == null)
-				this.testers  = new ArrayList<>();
+        public Builder addTesterGroup(String group) {
+            if (this.testers == null)
+                this.testers  = new ArrayList<>();
 
-			this.testers.add(group);
-			return this;
-		}
+            this.testers.add(group);
+            return this;
+        }
 
-		public Builder notifyTesters(boolean notify) {
-			this.notify = notify;
-			return this;
-		}
+        public Builder notifyTesters(boolean notify) {
+            this.notify = notify;
+            return this;
+        }
 
-		public Builder setMetrics(Metrics metrics) {
-			this.metrics = metrics;
-			return this;
-		}
+        public Builder setMetrics(Metrics metrics) {
+            this.metrics = metrics;
+            return this;
+        }
 
-		public Builder setAnonymous(boolean anonymous) {
-			this.anonymous = anonymous;
-			return this;
-		}
+        public Builder setAnonymous(boolean anonymous) {
+            this.anonymous = anonymous;
+            return this;
+        }
 
-		public Builder setMaxDuration(String duration) {
-			this.maxDuration = duration;
-			return this;
-		}
+        public Builder setMaxDuration(String duration) {
+            this.maxDuration = duration;
+            return this;
+        }
 
-		public Builder setVideoRecordingOn() {
-			this.videoRecording = "on";
-			return this;
-		}
+        public Builder setVideoRecordingOn() {
+            this.videoRecording = "on";
+            return this;
+        }
 
-		public Builder setVideoRecordingOff() {
-			this.videoRecording = "off";
-			return this;
-		}
+        public Builder setVideoRecordingOff() {
+            this.videoRecording = "off";
+            return this;
+        }
 
-		public Builder setVideoRecordingWifi() {
-			this.videoRecording = "wifi";
-			return this;
-		}
+        public Builder setVideoRecordingWifi() {
+            this.videoRecording = "wifi";
+            return this;
+        }
 
-		public Builder setVideoRecordingRate(float fps) {
-			this.framesPerSecond = fps;
-			return this;
-		}
+        public Builder setVideoRecordingRate(float fps) {
+            this.framesPerSecond = fps;
+            return this;
+        }
 
-		public Builder setVideoQualityHigh() {
-			this.videoQuality = "high";
-			return this;
-		}
+        public Builder setVideoQualityHigh() {
+            this.videoQuality = "high";
+            return this;
+        }
 
-		public Builder setVideoQualityMedium() {
-			this.videoQuality = "medium";
-			return this;
-		}
+        public Builder setVideoQualityMedium() {
+            this.videoQuality = "medium";
+            return this;
+        }
 
-		public Builder setVideoQualityLow() {
-			this.videoQuality = "low";
-			return this;
-		}
+        public Builder setVideoQualityLow() {
+            this.videoQuality = "low";
+            return this;
+        }
 
-		public Builder setIconWatermark(boolean watermark) {
-			this.watermarkIcon = watermark;
-			return this;
-		}
+        public Builder setIconWatermark(boolean watermark) {
+            this.watermarkIcon = watermark;
+            return this;
+        }
 
-		public Builder setComment(String comment) {
-			this.comment = comment;
-			return this;
-		}
+        public Builder setComment(String comment) {
+            this.comment = comment;
+            return this;
+        }
 
-		public Builder setAutoUpdate(boolean autoUpdate) {
-			this.autoUpdate = autoUpdate;
-			return this;
-		}
+        public Builder setAutoUpdate(boolean autoUpdate) {
+            this.autoUpdate = autoUpdate;
+            return this;
+        }
 
-		public Options build() {
-			// TODO: Validate maxDurations
-			assertNotEmpty("maxDuration", this.maxDuration);
-			String testers = this.testers == null ? null : Strings.join(this.testers, ",");
-			String metrics = this.metrics == null ? null : this.metrics.asFormString();
-			if (framesPerSecond < 1.0f) throw new IllegalArgumentException("Frame rate cannot less than 1.0");
+        public Options build() {
+            // TODO: Validate maxDurations
+            assertNotEmpty("maxDuration", this.maxDuration);
+            String testers = this.testers == null ? null : Strings.join(this.testers, ",");
+            String metrics = this.metrics == null ? null : this.metrics.asFormString();
+            if (framesPerSecond < 1.0f) throw new IllegalArgumentException("Frame rate cannot less than 1.0");
 
-			return new Options(
-				notify,
-				anonymous,
-				autoUpdate,
-				watermarkIcon,
-				testers,
-				metrics,
-				maxDuration,
-				comment,
-				videoRecording,
-				videoQuality,
-				String.valueOf(framesPerSecond)
-			);
-		}
+            return new Options(
+                notify,
+                anonymous,
+                autoUpdate,
+                watermarkIcon,
+                testers,
+                metrics,
+                maxDuration,
+                comment,
+                videoRecording,
+                videoQuality,
+                String.valueOf(framesPerSecond)
+            );
+        }
 
-		private static void assertNotEmpty(String key, String value) {
-			if (Strings.isEmpty(value)) throw new IllegalArgumentException(key + " cannot be empty");
-		}
-	}
+        private static void assertNotEmpty(String key, String value) {
+            if (Strings.isEmpty(value)) throw new IllegalArgumentException(key + " cannot be empty");
+        }
+    }
 
-	final boolean notify;
-	final boolean anonymous;
-	final boolean autoUpdate;
-	final boolean watermarkIcon;
-	final String testers;
-	final String metrics;
-	final String maxDuration;
-	final String comment;
-	final String videoRecording;
-	final String videoQuality;
-	final String framesPerSecond;
+    final boolean notify;
+    final boolean anonymous;
+    final boolean autoUpdate;
+    final boolean watermarkIcon;
+    final String testers;
+    final String metrics;
+    final String maxDuration;
+    final String comment;
+    final String videoRecording;
+    final String videoQuality;
+    final String framesPerSecond;
 
-	Options(
-		boolean notify,
-		boolean anonymous,
-		boolean autoUpdate,
-		boolean watermarkIcon,
-		String testers,
-		String metrics,
-		String duration,
-		String comment,
-		String videoRecording,
-		String videoQuality,
-		String framesPerSecond
-	) {
-		this.testers = testers;
-		this.notify = notify;
-		this.anonymous = anonymous;
-		this.autoUpdate = autoUpdate;
-		this.watermarkIcon = watermarkIcon;
-		this.metrics = metrics;
-		this.maxDuration = duration;
-		this.comment = comment;
-		this.videoRecording = videoRecording;
-		this.videoQuality = videoQuality;
-		this.framesPerSecond = framesPerSecond;
-	}
+    Options(
+        boolean notify,
+        boolean anonymous,
+        boolean autoUpdate,
+        boolean watermarkIcon,
+        String testers,
+        String metrics,
+        String duration,
+        String comment,
+        String videoRecording,
+        String videoQuality,
+        String framesPerSecond
+    ) {
+        this.testers = testers;
+        this.notify = notify;
+        this.anonymous = anonymous;
+        this.autoUpdate = autoUpdate;
+        this.watermarkIcon = watermarkIcon;
+        this.metrics = metrics;
+        this.maxDuration = duration;
+        this.comment = comment;
+        this.videoRecording = videoRecording;
+        this.videoQuality = videoQuality;
+        this.framesPerSecond = framesPerSecond;
+    }
 }

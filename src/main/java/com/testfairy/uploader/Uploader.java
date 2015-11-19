@@ -1,5 +1,5 @@
 package com.testfairy.uploader;
 
 public interface Uploader {
-	void upload(Listener listener);
+    void upload(Listener listener);
 }
