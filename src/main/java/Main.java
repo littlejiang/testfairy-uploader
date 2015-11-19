@@ -32,7 +32,7 @@ public class Main {
 
 			@Override
 			public void onUploadFailed(Throwable throwable) {
-
+				throwable.printStackTrace();
 			}
 
 			@Override

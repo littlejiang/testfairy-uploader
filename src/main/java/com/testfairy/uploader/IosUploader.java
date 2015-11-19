@@ -33,7 +33,7 @@ public class IosUploader implements Uploader {
 			request
 				.addString("api_key", apiKey)
 				.addFile("file", new File(ipaPath))
-				.addFile("changelog", null); 					// TODO
+				.addString("changelog", null); 					// TODO
 
 			if (! Strings.isEmpty(symbolsMapPath))
 				request.addFile("symbols_file", new File(symbolsMapPath));
@@ -118,9 +118,9 @@ public class IosUploader implements Uploader {
 						proxyHost, proxyPort, proxyUser, proxyPassword
 					)
 				),
+				apiKey,
 				ipaPath,
 				symbolsPath,
-				apiKey,
 				options
 			);
 		}
