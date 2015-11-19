@@ -5,20 +5,26 @@ import java.io.File;
 public class IosUploader implements Uploader {
 	private final TestFairyService service;
 	private final String apiKey;
+	private final String ipaPath;
+	private final String symbolsMapPath;
 	private final Options options;
 
 	IosUploader(
 		TestFairyService service,
 		String apiKey,
+		String ipaPath,
+		String symbolsMapPath,
 		Options options
 	) {
 		this.service = service;
 		this.apiKey = apiKey;
+		this.ipaPath = ipaPath;
+		this.symbolsMapPath = symbolsMapPath;
 		this.options = options;
 	}
 
 	@Override
-	public void upload(String pathToIpa, Listener listener) {
+	public void upload(Listener listener) {
 		try {
 			if (listener != null) listener.onUploadStarted();
 
@@ -26,8 +32,11 @@ public class IosUploader implements Uploader {
 
 			request
 				.addString("api_key", apiKey)
-				.addFile("file", new File(pathToIpa));
-//			request.addString("changelog", changelog);
+				.addFile("file", new File(ipaPath))
+				.addFile("changelog", null); 					// TODO
+
+			if (! Strings.isEmpty(symbolsMapPath))
+				request.addFile("symbols_file", new File(symbolsMapPath));
 
 			if (options != null) {
 				request
@@ -40,11 +49,11 @@ public class IosUploader implements Uploader {
 					.addString("icon-watermark", options.watermarkIcon ? "on" : "off")
 					.addString("testers-groups", options.testers)
 					.addString("notify", options.notify ? "on" : "off")
-					.addString("auto-update", options.autoUpdate ? "on" : "off");
-				// record-on-background
-				// screenshot-interval
-				// advanced-options
-				// data-only-wifi
+					.addString("auto-update", options.autoUpdate ? "on" : "off")
+					.addString("record-on-background", null) 	// TODO
+					.addString("screenshot-interval", null) 	// TODO: Is this different from video-rate
+					.addString("advanced-options", null)		// TODO
+					.addString("data-only-wifi", null);			// TODO
 			}
 
 			request.upload();
@@ -55,13 +64,12 @@ public class IosUploader implements Uploader {
 		}
 	}
 
-/*
-symbols file
-proxy
-*/
 	public static class Builder {
 		private final String apiKey;
 		private Options options;
+
+		private String ipaPath;
+		private String symbolsPath;
 
 		private String proxyHost;
 		private int proxyPort;
@@ -89,7 +97,19 @@ proxy
 			return this;
 		}
 
+		public Builder setIpaPath(String ipaPath) {
+			this.ipaPath = ipaPath;
+			return this;
+		}
+
+		public Builder setSymbolsPath(String symbolsPath) {
+			this.symbolsPath = symbolsPath;
+			return this;
+		}
+
 		public IosUploader build() {
+			if (Strings.isEmpty(ipaPath)) throw new IllegalArgumentException("Path to IPA not set. Call setIpaPath with path to IPA.");
+
 			return new IosUploader(
 				new TestFairyService(
 					Config.SERVER_ENDPOINT,
@@ -98,6 +118,8 @@ proxy
 						proxyHost, proxyPort, proxyUser, proxyPassword
 					)
 				),
+				ipaPath,
+				symbolsPath,
 				apiKey,
 				options
 			);

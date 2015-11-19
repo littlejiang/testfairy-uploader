@@ -44,13 +44,16 @@ public class Main {
 
 		IosUploader ios = new IosUploader.Builder(API_KEY)
 			.setOptions(options)
+			.setIpaPath("/Users/vsharma/Desktop/Blah/Blah-original.ipa")
 			.build();
 
-		ios.upload("/Users/vsharma/Desktop/Blah/Blah-original.ipa", listener);
+		ios.upload(listener);
 
 		AndroidUploader android = new AndroidUploader.Builder(API_KEY)
 			.setOptions(options)
+			.setApkPath("/Users/vsharma/testfairy/demo/app/build/outputs/apk/app-debug-unaligned.apk")
 			.build();
-		android.upload("/Users/vsharma/testfairy/demo/app/build/outputs/apk/app-debug-unaligned.apk", listener);
+
+		android.upload(listener);
 	}
 }

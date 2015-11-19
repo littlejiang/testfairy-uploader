@@ -30,13 +30,13 @@ public class IosUploaderTest {
 	@Test
 	public void upload_adds_api_key_to_request() {
 		IosUploader uploader = new IosUploader(
-			service, API_KEY, null
+			service, API_KEY, "PATH_TO_IPA", null, null
 		);
 
 		ArgumentCaptor<String> keyCaptor = ArgumentCaptor.forClass(String.class);
 		ArgumentCaptor<String> valueCaptor = ArgumentCaptor.forClass(String.class);
 
-		uploader.upload("PATH_TO_IPA", null);
+		uploader.upload(null);
 
 		verify(request).addString(keyCaptor.capture(), valueCaptor.capture());
 		List<String> allKeys = keyCaptor.getAllValues();
@@ -52,19 +52,19 @@ public class IosUploaderTest {
 	public void upload_adds_options_to_request() {
 		Options defaultOptions = new Options.Builder().build();
 		IosUploader uploader = new IosUploader(
-			service, API_KEY, defaultOptions
+			service, API_KEY, "PATH_TO_IPA", null, defaultOptions
 		);
 
 		ArgumentCaptor<String> keyCaptor = ArgumentCaptor.forClass(String.class);
 		ArgumentCaptor<String> valueCaptor = ArgumentCaptor.forClass(String.class);
 
-		uploader.upload("PATH_TO_IPA", null);
+		uploader.upload(null);
 
-		verify(request, times(11)).addString(keyCaptor.capture(), valueCaptor.capture());
+		verify(request, times(15)).addString(keyCaptor.capture(), valueCaptor.capture());
 		List<String> allKeys = keyCaptor.getAllValues();
 		List<String> allValues = valueCaptor.getAllValues();
-		assertEquals(11, allKeys.size());
-		assertEquals(11, allValues.size());
+		assertEquals(15, allKeys.size());
+		assertEquals(15, allValues.size());
 
 		assertEquals("api_key", allKeys.get(0));
 		assertEquals(API_KEY, allValues.get(0));
@@ -98,17 +98,29 @@ public class IosUploaderTest {
 
 		assertEquals("auto-update", allKeys.get(10));
 		assertEquals("off", allValues.get(10));
+
+		assertEquals("record-on-background", allKeys.get(11));
+		assertEquals(null, allValues.get(11));
+
+		assertEquals("screenshot-interval", allKeys.get(12));
+		assertEquals(null, allValues.get(12));
+
+		assertEquals("advanced-options", allKeys.get(13));
+		assertEquals(null, allValues.get(13));
+
+		assertEquals("data-only-wifi", allKeys.get(14));
+		assertEquals(null, allValues.get(14));
 	}
 
 	public void upload_appends_file() {
 		IosUploader uploader = new IosUploader(
-			service, API_KEY, null
+			service, API_KEY, "PATH_TO_IPA", null, null
 		);
 
 		ArgumentCaptor<String> keyCaptor = ArgumentCaptor.forClass(String.class);
 		ArgumentCaptor<File> valueCaptor = ArgumentCaptor.forClass(File.class);
 
-		uploader.upload("PATH_TO_IPA", null);
+		uploader.upload(null);
 
 		verify(request).addFile(keyCaptor.capture(), valueCaptor.capture());
 		List<String> allKeys = keyCaptor.getAllValues();
@@ -123,11 +135,11 @@ public class IosUploaderTest {
 	@Test
 	public void upload_notifies_started() {
 		IosUploader uploader = new IosUploader(
-			service, API_KEY, null
+			service, API_KEY, "PATH_TO_IPA", null, null
 		);
 
 		Listener listener = mock(Listener.class);
-		uploader.upload("PATH_TO_IPA", listener);
+		uploader.upload(listener);
 
 		verify(listener).onUploadStarted();
 	}
@@ -135,11 +147,11 @@ public class IosUploaderTest {
 	@Test
 	public void upload_notifies_completed() {
 		IosUploader uploader = new IosUploader(
-			service, API_KEY, null
+			service, API_KEY, "PATH_TO_IPA", null, null
 		);
 
 		Listener listener = mock(Listener.class);
-		uploader.upload("PATH_TO_IPA", listener);
+		uploader.upload(listener);
 
 		verify(listener).onUploadComplete();
 	}
@@ -147,13 +159,13 @@ public class IosUploaderTest {
 	@Test
 	public void upload_notifies_failures() {
 		IosUploader uploader = new IosUploader(
-			service, API_KEY, null
+			service, API_KEY, "PATH_TO_IPA", null, null
 		);
 
 		Listener listener = mock(Listener.class);
 		doThrow(RuntimeException.class)
 			.when(request).upload();
-		uploader.upload("PATH_TO_IPA", listener);
+		uploader.upload(listener);
 
 		verify(listener).onUploadFailed(any(RuntimeException.class));
 	}

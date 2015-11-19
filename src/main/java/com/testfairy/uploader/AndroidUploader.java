@@ -5,20 +5,26 @@ import java.io.File;
 public class AndroidUploader implements Uploader {
 	private final TestFairyService service;
 	private final String apiKey;
+	private final String apkPath;
+	private final String proguardMapPath;
 	private final Options options;
 
 	AndroidUploader(
 		TestFairyService service,
 		String apiKey,
+		String apkPath,
+		String proguardMapPath,
 		Options options
 	) {
 		this.service = service;
 		this.apiKey = apiKey;
+		this.apkPath = apkPath;
+		this.proguardMapPath = proguardMapPath;
 		this.options = options;
 	}
 
 	@Override
-	public void upload(String pathToApk, Listener listener) {
+	public void upload(Listener listener) {
 		try {
 			if (listener != null) listener.onUploadStarted();
 
@@ -26,9 +32,11 @@ public class AndroidUploader implements Uploader {
 
 			request
 				.addString("api_key", apiKey)
-				.addFile("apk_file", new File(pathToApk));
-//				.addString("proguard_file", pathToProguardMap);
-//				.addString("changelog", changelog);
+				.addFile("apk_file", new File(apkPath))
+				.addString("changelog", null);  // TODO
+
+			if (! Strings.isEmpty(proguardMapPath))
+				request.addFile("proguard_file", new File(proguardMapPath));
 
 			// Pre-signing
 			if (options != null) {
@@ -39,11 +47,11 @@ public class AndroidUploader implements Uploader {
 					.addString("video", options.videoRecording)
 					.addString("video-quality", options.videoQuality)
 					.addString("video-rate", options.framesPerSecond)
-					.addString("icon-watermark", options.watermarkIcon ? "on" : "off");
-				// record-on-background
-				// screenshot-interval
-				// advanced-options
-				// data-only-wifi
+					.addString("icon-watermark", options.watermarkIcon ? "on" : "off")
+					.addString("record-on-background", null)	// TODO
+					.addString("screenshot-interval", null)		// TODO
+					.addString("advanced-options", null)		// TODO
+					.addString("data-only-wifi", null);			// TODO
 			}
 
 			request.upload();
@@ -65,17 +73,6 @@ public class AndroidUploader implements Uploader {
 	}
 
 	/*
-	# Your Keystore, Storepass and Alias, the ones you use to sign your app.
-	KEYSTORE=
-	STOREPASS=
-	ALIAS=
-	ZIP=zip
-	UNZIP=unzip
-	KEYTOOL=keytool
-	ZIPALIGN=zipalign
-	JARSIGNER=jarsigner
-	proguard-mapping=/mapping.txt
-	proxy
 	ignore instrumentation // is this a parameter? or detected by the uploader? Can I pass a parameter into the curl command?
 	*/
 	public static class Builder {
@@ -89,8 +86,10 @@ public class AndroidUploader implements Uploader {
 		private String unzipPath;
 		private String zipAlignPath;
 		private String jarSignerPath;
-		private String proguardMapPath;
 		private boolean ignoreInstrumentation;
+
+		private String apkPath;
+		private String proguardMapPath;
 
 		private String proxyHost;
 		private int proxyPort;
@@ -117,6 +116,11 @@ public class AndroidUploader implements Uploader {
 		public Builder setProxyCredentials(String user, String password) {
 			this.proxyUser = user;
 			this.proxyPassword = password;
+			return this;
+		}
+
+		public Builder setApkPath(String apkPath) {
+			this.apkPath = apkPath;
 			return this;
 		}
 
@@ -159,6 +163,8 @@ public class AndroidUploader implements Uploader {
 		}
 
 		public AndroidUploader build() {
+			if (Strings.isEmpty(apkPath)) throw new IllegalArgumentException("Path to APK is null. Call setApkPath with a valid path to APK.");
+
 			return new AndroidUploader(
 				new TestFairyService(
 					Config.SERVER_ENDPOINT,
@@ -168,6 +174,8 @@ public class AndroidUploader implements Uploader {
 					)
 				),
 				this.apiKey,
+				this.apkPath,
+				this.proguardMapPath,
 				this.options
 			);
 		}
