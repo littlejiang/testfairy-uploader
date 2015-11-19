@@ -38,11 +38,11 @@ public class IosUploaderTest {
 
 		uploader.upload(null);
 
-		verify(request).addString(keyCaptor.capture(), valueCaptor.capture());
+		verify(request, times(2)).addString(keyCaptor.capture(), valueCaptor.capture());
 		List<String> allKeys = keyCaptor.getAllValues();
 		List<String> allValues = valueCaptor.getAllValues();
-		assertEquals(1, allKeys.size());
-		assertEquals(1, allValues.size());
+		assertEquals(2, allKeys.size());
+		assertEquals(2, allValues.size());
 
 		assertEquals("api_key", allKeys.get(0));
 		assertEquals(API_KEY, allValues.get(0));
@@ -60,56 +60,59 @@ public class IosUploaderTest {
 
 		uploader.upload(null);
 
-		verify(request, times(15)).addString(keyCaptor.capture(), valueCaptor.capture());
+		verify(request, times(16)).addString(keyCaptor.capture(), valueCaptor.capture());
 		List<String> allKeys = keyCaptor.getAllValues();
 		List<String> allValues = valueCaptor.getAllValues();
-		assertEquals(15, allKeys.size());
-		assertEquals(15, allValues.size());
+		assertEquals(16, allKeys.size());
+		assertEquals(16, allValues.size());
 
 		assertEquals("api_key", allKeys.get(0));
 		assertEquals(API_KEY, allValues.get(0));
 
-		assertEquals("metrics", allKeys.get(1));
+		assertEquals("changelog", allKeys.get(1));
 		assertEquals(null, allValues.get(1));
 
-		assertEquals("max-duration", allKeys.get(2));
-		assertEquals("10m", allValues.get(2));
+		assertEquals("metrics", allKeys.get(2));
+		assertEquals(null, allValues.get(2));
 
-		assertEquals("comment", allKeys.get(3));
-		assertEquals(null, allValues.get(3));
+		assertEquals("max-duration", allKeys.get(3));
+		assertEquals("10m", allValues.get(3));
 
-		assertEquals("video", allKeys.get(4));
-		assertEquals("on", allValues.get(4));
+		assertEquals("comment", allKeys.get(4));
+		assertEquals(null, allValues.get(4));
 
-		assertEquals("video-quality", allKeys.get(5));
-		assertEquals("high", allValues.get(5));
+		assertEquals("video", allKeys.get(5));
+		assertEquals("on", allValues.get(5));
 
-		assertEquals("video-rate", allKeys.get(6));
-		assertEquals("1.0", allValues.get(6));
+		assertEquals("video-quality", allKeys.get(6));
+		assertEquals("high", allValues.get(6));
 
-		assertEquals("icon-watermark", allKeys.get(7));
-		assertEquals("off", allValues.get(7));
+		assertEquals("video-rate", allKeys.get(7));
+		assertEquals("1.0", allValues.get(7));
 
-		assertEquals("testers-groups", allKeys.get(8));
-		assertEquals(null, allValues.get(8));
+		assertEquals("icon-watermark", allKeys.get(8));
+		assertEquals("off", allValues.get(8));
 
-		assertEquals("notify", allKeys.get(9));
-		assertEquals("on", allValues.get(9));
+		assertEquals("testers-groups", allKeys.get(9));
+		assertEquals(null, allValues.get(9));
 
-		assertEquals("auto-update", allKeys.get(10));
-		assertEquals("off", allValues.get(10));
+		assertEquals("notify", allKeys.get(10));
+		assertEquals("on", allValues.get(10));
 
-		assertEquals("record-on-background", allKeys.get(11));
-		assertEquals(null, allValues.get(11));
+		assertEquals("auto-update", allKeys.get(11));
+		assertEquals("off", allValues.get(11));
 
-		assertEquals("screenshot-interval", allKeys.get(12));
+		assertEquals("record-on-background", allKeys.get(12));
 		assertEquals(null, allValues.get(12));
 
-		assertEquals("advanced-options", allKeys.get(13));
+		assertEquals("screenshot-interval", allKeys.get(13));
 		assertEquals(null, allValues.get(13));
 
-		assertEquals("data-only-wifi", allKeys.get(14));
+		assertEquals("advanced-options", allKeys.get(14));
 		assertEquals(null, allValues.get(14));
+
+		assertEquals("data-only-wifi", allKeys.get(15));
+		assertEquals(null, allValues.get(15));
 	}
 
 	public void upload_appends_file() {
@@ -153,7 +156,7 @@ public class IosUploaderTest {
 		Listener listener = mock(Listener.class);
 		uploader.upload(listener);
 
-		verify(listener).onUploadComplete();
+		verify(listener).onUploadComplete(null);
 	}
 
 	@Test

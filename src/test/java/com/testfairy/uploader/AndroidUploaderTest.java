@@ -147,7 +147,7 @@ public class AndroidUploaderTest {
 		Listener listener = mock(Listener.class);
 		uploader.upload(listener);
 
-		verify(listener).onUploadComplete();
+		verify(listener).onUploadComplete(null);
 	}
 
 	@Test
