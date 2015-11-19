@@ -17,7 +17,7 @@ public class Metrics {
     }
 
     public static class Builder {
-        private Set<String> metrics = new HashSet<>(10);
+        private Set<String> metrics = new HashSet<String>(10);
 
         public Builder addCpu() {
             metrics.add("cpu");
@@ -70,7 +70,7 @@ public class Metrics {
         }
 
         public Metrics build() {
-            return new Metrics(new ArrayList<>(metrics));
+            return new Metrics(new ArrayList<String>(metrics));
         }
     }
 }

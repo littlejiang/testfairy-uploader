@@ -48,7 +48,7 @@ public class Options {
 
         public Builder addTesterGroup(String group) {
             if (this.testers == null)
-                this.testers  = new ArrayList<>();
+                this.testers  = new ArrayList<String>();
 
             this.testers.add(group);
             return this;

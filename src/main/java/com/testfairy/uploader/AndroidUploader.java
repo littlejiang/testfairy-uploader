@@ -96,10 +96,13 @@ public class AndroidUploader implements Uploader {
         private String proxyUser;
         private String proxyPassword;
 
+        private SdkEnvironment environment;
+
         public Builder(String apiKey) {
             this.apiKey = apiKey;
             this.ignoreInstrumentation = false;
             this.proxyPort = -1;
+            this.environment = new SdkEnvironment();
         }
 
         public Builder setOptions(Options options) {
