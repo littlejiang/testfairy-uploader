@@ -217,6 +217,8 @@ public class AndroidUploader implements Uploader {
         public AndroidUploader build() {
             if (Strings.isEmpty(apiKey)) throw new IllegalArgumentException("API Key is empty. Please goto to https://app.testfairy.com/settings/ and use the API Key found there");
             if (Strings.isEmpty(apkPath)) throw new IllegalArgumentException("Path to APK is empty. Call setApkPath with a valid path to APK.");
+            if (! new File(apkPath).exists()) throw new IllegalArgumentException("APK was not found at " + apkPath);
+            if (! Strings.isEmpty(proguardMapPath) && ! new File(proguardMapPath).exists()) throw new IllegalArgumentException("Proguard map file was not found at " + proguardMapPath);
 
             TestFairyService service = new TestFairyService(
                 Config.SERVER_ENDPOINT,
@@ -238,6 +240,7 @@ public class AndroidUploader implements Uploader {
 
                 if (! new File(jarSignerPath).exists()) throw new IllegalArgumentException("jarsigner was not found at " + jarSignerPath);
                 if (! new File(zipAlignPath).exists()) throw new IllegalArgumentException("zipAlignPath was not found at " + zipAlignPath);
+                if (! new File(keystorePath).exists()) throw new IllegalArgumentException("Keystore was not found at " + keystorePath);
             }
 
             ProcessExecutor executor = new ProcessExecutor();

@@ -33,7 +33,7 @@ public class IosUploader implements Uploader {
             request
                 .addString("api_key", apiKey)
                 .addFile("file", new File(ipaPath))
-                .addString("changelog", null); 					// TODO
+                .addString("changelog", null);                                      // TODO
 
             if (! Strings.isEmpty(symbolsMapPath))
                 request.addFile("symbols_file", new File(symbolsMapPath));
@@ -50,10 +50,10 @@ public class IosUploader implements Uploader {
                     .addString("testers-groups", options.testers)
                     .addString("notify", options.notify ? "on" : "off")
                     .addString("auto-update", options.autoUpdate ? "on" : "off")
-                    .addString("record-on-background", null) 	// TODO
-                    .addString("screenshot-interval", null) 	// TODO: Is this different from video-rate
-                    .addString("advanced-options", null)		// TODO
-                    .addString("data-only-wifi", null);			// TODO
+                    .addString("record-on-background", null)                        // TODO
+                    .addString("screenshot-interval", null)                         // TODO: Is this different from video-rate
+                    .addString("advanced-options", null)                            // TODO
+                    .addString("data-only-wifi", null);                             // TODO
             }
 
             Build response = request.upload();
@@ -110,6 +110,8 @@ public class IosUploader implements Uploader {
         public IosUploader build() {
             if (Strings.isEmpty(apiKey)) throw new IllegalArgumentException("API Key is empty. Please goto to https://app.testfairy.com/settings/ and use the API Key found there");
             if (Strings.isEmpty(ipaPath)) throw new IllegalArgumentException("Path to IPA not set. Call setIpaPath with path to IPA.");
+            if (! new File(ipaPath).exists()) throw new IllegalArgumentException("IPA was not found at " + ipaPath);
+            if (! Strings.isEmpty(symbolsPath) && ! new File(symbolsPath).exists()) throw new IllegalArgumentException("Symbols file was not found at " + symbolsPath);
 
             return new IosUploader(
                 new TestFairyService(
