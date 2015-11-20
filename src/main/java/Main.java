@@ -47,7 +47,7 @@ public class Main {
             .setIpaPath("/Users/vsharma/Desktop/Blah/Blah-original.ipa")
             .build();
 
-        ios.upload(listener);
+//        ios.upload(listener);
 
         AndroidUploader android = new AndroidUploader.Builder(API_KEY)
             .setOptions(options)

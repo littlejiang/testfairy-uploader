@@ -9,6 +9,11 @@ import static org.junit.Assert.assertEquals;
 @RunWith(MockitoJUnitRunner.class)
 public class MetricsTest {
     @Test
+    public void default_has_expected_values() {
+        assertEquals("cpu,memory,logcat", Metrics.DEFAULT_METRICS.asFormString());
+    }
+
+    @Test
     public void new_metrics_has_adds_no_values() {
         Metrics metrics = new Metrics.Builder().build();
         assertEquals("", metrics.asFormString());

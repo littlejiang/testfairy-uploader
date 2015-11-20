@@ -18,11 +18,13 @@ public class AndroidUploaderTest {
     private static final String API_KEY = "API_KEY";
     private TestFairyService service;
     private TestFairyService.Request request;
+    private AndroidAppSigner resigner;
 
     @Before
     public void before() {
         service = mock(TestFairyService.class);
         request = mock(TestFairyService.Request.class, new SelfReturningAnswer());
+        resigner = mock(AndroidAppSigner.class);
 
         when(service.newRequest()).thenReturn(request);
     }
@@ -30,7 +32,7 @@ public class AndroidUploaderTest {
     @Test
     public void upload_adds_api_key_to_request() {
         AndroidUploader uploader = new AndroidUploader(
-            service, API_KEY, "PATH_TO_APK", null, null
+            service, resigner, API_KEY, "PATH_TO_APK", null, false, null
         );
 
         ArgumentCaptor<String> keyCaptor = ArgumentCaptor.forClass(String.class);
@@ -52,7 +54,7 @@ public class AndroidUploaderTest {
     public void upload_adds_options_to_request() {
         Options defaultOptions = new Options.Builder().build();
         AndroidUploader uploader = new AndroidUploader(
-            service, API_KEY, "PATH_TO_APK", null, defaultOptions
+            service, resigner, API_KEY, "PATH_TO_APK", null, false, defaultOptions
         );
 
         ArgumentCaptor<String> keyCaptor = ArgumentCaptor.forClass(String.class);
@@ -60,11 +62,11 @@ public class AndroidUploaderTest {
 
         uploader.upload( null);
 
-        verify(request, times(13)).addString(keyCaptor.capture(), valueCaptor.capture());
+        verify(request, times(16)).addString(keyCaptor.capture(), valueCaptor.capture());
         List<String> allKeys = keyCaptor.getAllValues();
         List<String> allValues = valueCaptor.getAllValues();
-        assertEquals(13, allKeys.size());
-        assertEquals(13, allValues.size());
+        assertEquals(16, allKeys.size());
+        assertEquals(16, allValues.size());
 
         assertEquals("api_key", allKeys.get(0));
         assertEquals(API_KEY, allValues.get(0));
@@ -104,11 +106,20 @@ public class AndroidUploaderTest {
 
         assertEquals("data-only-wifi", allKeys.get(12));
         assertEquals(null, allValues.get(12));
+
+        assertEquals("testers-groups", allKeys.get(13));
+        assertEquals(null, allValues.get(13));
+
+        assertEquals("notify", allKeys.get(14));
+        assertEquals("on", allValues.get(14));
+
+        assertEquals("auto-update", allKeys.get(15));
+        assertEquals("off", allValues.get(15));
     }
 
     public void upload_appends_file() {
         AndroidUploader uploader = new AndroidUploader(
-            service, API_KEY, "PATH_TO_APK", null, null
+            service, resigner, API_KEY, "PATH_TO_APK", null, false, null
         );
 
         ArgumentCaptor<String> keyCaptor = ArgumentCaptor.forClass(String.class);
@@ -129,7 +140,7 @@ public class AndroidUploaderTest {
     @Test
     public void upload_notifies_started() {
         AndroidUploader uploader = new AndroidUploader(
-            service, API_KEY, "PATH_TO_APK", null, null
+            service, resigner, API_KEY, "PATH_TO_APK", null, false, null
         );
 
         Listener listener = mock(Listener.class);
@@ -141,7 +152,7 @@ public class AndroidUploaderTest {
     @Test
     public void upload_notifies_completed() {
         AndroidUploader uploader = new AndroidUploader(
-            service, API_KEY, "PATH_TO_APK", null, null
+            service, resigner, API_KEY, "PATH_TO_APK", null, false, null
         );
 
         Listener listener = mock(Listener.class);
@@ -153,7 +164,7 @@ public class AndroidUploaderTest {
     @Test
     public void upload_notifies_failures() {
         AndroidUploader uploader = new AndroidUploader(
-            service, API_KEY, "PATH_TO_APK", null, null
+            service, resigner, API_KEY, "PATH_TO_APK", null, false, null
         );
 
         Listener listener = mock(Listener.class);

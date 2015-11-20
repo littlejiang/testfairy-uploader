@@ -1,11 +1,10 @@
 package com.testfairy.uploader;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Metrics {
+    public static final Metrics DEFAULT_METRICS = new Metrics.Builder().addCpu().addMemory().addLogcat().build();
+
     private final List<String> metrics;
 
     Metrics(List<String> metrics) {
@@ -17,7 +16,7 @@ public class Metrics {
     }
 
     public static class Builder {
-        private Set<String> metrics = new HashSet<String>(10);
+        private Set<String> metrics = new LinkedHashSet<String>(10);
 
         public Builder addCpu() {
             metrics.add("cpu");

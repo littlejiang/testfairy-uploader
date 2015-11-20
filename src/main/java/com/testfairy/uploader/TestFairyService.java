@@ -2,11 +2,13 @@ package com.testfairy.uploader;
 
 import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.Credentials;
 import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.entity.mime.MultipartEntity;
@@ -14,10 +16,7 @@ import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import java.io.File;
-import java.io.InputStream;
-import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.util.Scanner;
 
 class TestFairyService {
@@ -37,6 +36,26 @@ class TestFairyService {
 
     Request newRequest() {
         return new Request(serverAddress, userAgent, proxyInfo);
+    }
+
+    File downloadFile(String url, String localFilename) {
+        FileOutputStream fis = null;
+        try {
+            DefaultHttpClient httpClient = new DefaultHttpClient();
+            proxyInfo.apply(httpClient);
+
+            HttpGet httpget = new HttpGet(url);
+            HttpResponse response = httpClient.execute(httpget);
+            HttpEntity entity = response.getEntity();
+
+            fis = new FileOutputStream(localFilename);
+            IOUtils.copy(entity.getContent(), fis);
+            return new File(localFilename);
+        } catch (Exception exception) {
+            throw new RuntimeException(exception);
+        } finally {
+            IOUtils.closeQuietly(fis);
+        }
     }
 
     static class ProxyInfo {
@@ -100,11 +119,19 @@ class TestFairyService {
         }
 
         public Build upload() {
+            return uploadTo(getUploadUrl());
+        }
+
+        public Build uploadSigned() {
+            return uploadTo(getSignedUploadUrl());
+        }
+
+        private Build uploadTo(String endpoint) {
             try {
                 DefaultHttpClient httpClient = new DefaultHttpClient();
                 proxyInfo.apply(httpClient);
 
-                HttpPost post = new HttpPost(getUploadUrl());
+                HttpPost post = new HttpPost(endpoint);
                 post.addHeader("User-Agent", userAgent);
                 post.setEntity(entity);
 
@@ -132,9 +159,12 @@ class TestFairyService {
             }
         }
 
-
         private String getUploadUrl() {
             return String.format("%s%s", serverAddress, "/api/upload");
+        }
+
+        private String getSignedUploadUrl() {
+            return String.format("%s%s", serverAddress, "/api/upload-signed");
         }
 
         private static void addEntry(MultipartEntity entity, String key, String value) {
