@@ -38,7 +38,7 @@ class TestFairyService {
         return new Request(serverAddress, userAgent, proxyInfo);
     }
 
-    File downloadFile(String url, String localFilename) {
+    File download(String url, String localFilename) {
         FileOutputStream fis = null;
         try {
             DefaultHttpClient httpClient = new DefaultHttpClient();

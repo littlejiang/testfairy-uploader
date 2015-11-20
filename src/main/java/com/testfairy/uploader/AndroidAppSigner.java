@@ -5,10 +5,6 @@ import org.apache.commons.compress.archivers.zip.ZipArchiveInputStream;
 import org.apache.commons.compress.archivers.zip.ZipArchiveOutputStream;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -38,10 +34,10 @@ class AndroidAppSigner {
         this.tempDirectory = System.getProperty("java.io.tmpdir");
     }
 
-    public File resign(Build build) {
+    File resign(Build build) {
         String baseName = FilenameUtils.getBaseName(apkPath);
 
-        File download = service.downloadFile(
+        File download = service.download(
             String.format("%s?api_key=%s", build.instrumentedUrl(), apiKey),
             FilenameUtils.normalize(String.format("%s/testfairy-%s.apk", tempDirectory, baseName))
         );
