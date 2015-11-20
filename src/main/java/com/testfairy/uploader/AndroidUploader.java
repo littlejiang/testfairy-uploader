@@ -91,6 +91,7 @@ public class AndroidUploader implements Uploader {
                 .addString("auto-update", options.autoUpdate ? "on" : "off");
         }
         response = request.uploadSigned();
+        signed.delete();
 
         if (listener != null) listener.onUploadComplete(response);
     }

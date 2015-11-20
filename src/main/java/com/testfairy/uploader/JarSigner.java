@@ -36,7 +36,7 @@ class JarSigner {
 
     void sign(File apkPath) {
         try {
-            List<String> commands = isJks(new File(keyStoreAlias)) ? jks(apkPath) : pkcs12(apkPath);
+            List<String> commands = isJks(new File(keyStorePath)) ? jks(apkPath) : pkcs12(apkPath);
             check(executor.execute(commands));
         } catch (Exception exception) {
             throw new RuntimeException(exception);
