@@ -67,6 +67,7 @@ public class IosUploader implements Uploader {
     public static class Builder {
         private final String apiKey;
         private Options options;
+        private String httpUserAgent;
 
         private String ipaPath;
         private String symbolsPath;
@@ -107,16 +108,22 @@ public class IosUploader implements Uploader {
             return this;
         }
 
+        public Builder setHttpUserAgent(String userAgent) {
+            this.httpUserAgent = userAgent;
+            return this;
+        }
+
         public IosUploader build() {
             if (Strings.isEmpty(apiKey)) throw new IllegalArgumentException("API Key is empty. Please goto to https://app.testfairy.com/settings/ and use the API Key found there");
             if (Strings.isEmpty(ipaPath)) throw new IllegalArgumentException("Path to IPA not set. Call setIpaPath with path to IPA.");
             if (! new File(ipaPath).exists()) throw new IllegalArgumentException("IPA was not found at " + ipaPath);
             if (! Strings.isEmpty(symbolsPath) && ! new File(symbolsPath).exists()) throw new IllegalArgumentException("Symbols file was not found at " + symbolsPath);
+            if (Strings.isEmpty(httpUserAgent)) httpUserAgent = Config.HTTP_USER_AGENT;
 
             return new IosUploader(
                 new TestFairyService(
                     Config.SERVER_ENDPOINT,
-                    Config.HTTP_USER_AGENT,
+                    httpUserAgent,
                     new TestFairyService.ProxyInfo(
                         proxyHost, proxyPort, proxyUser, proxyPassword
                     )

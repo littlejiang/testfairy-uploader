@@ -144,6 +144,7 @@ public class AndroidUploader implements Uploader {
 
         private String apkPath;
         private String proguardMapPath;
+        private String httpUserAgent;
 
         private String proxyHost;
         private int proxyPort;
@@ -215,15 +216,20 @@ public class AndroidUploader implements Uploader {
             return this;
         }
 
+        public void setHttpUserAgent(String httpUserAgent) {
+            this.httpUserAgent = httpUserAgent;
+        }
+
         public AndroidUploader build() {
             if (Strings.isEmpty(apiKey)) throw new IllegalArgumentException("API Key is empty. Please goto to https://app.testfairy.com/settings/ and use the API Key found there");
             if (Strings.isEmpty(apkPath)) throw new IllegalArgumentException("Path to APK is empty. Call setApkPath with a valid path to APK.");
             if (! new File(apkPath).exists()) throw new IllegalArgumentException("APK was not found at " + apkPath);
             if (! Strings.isEmpty(proguardMapPath) && ! new File(proguardMapPath).exists()) throw new IllegalArgumentException("Proguard map file was not found at " + proguardMapPath);
+            if (Strings.isEmpty(httpUserAgent)) httpUserAgent = Config.HTTP_USER_AGENT;
 
             TestFairyService service = new TestFairyService(
                 Config.SERVER_ENDPOINT,
-                Config.HTTP_USER_AGENT,
+                httpUserAgent,
                 new TestFairyService.ProxyInfo(
                     proxyHost, proxyPort, proxyUser, proxyPassword
                 )
