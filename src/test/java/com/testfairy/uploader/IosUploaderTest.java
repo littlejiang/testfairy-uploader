@@ -14,7 +14,7 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class IosUploaderTest {
+public class IOSUploaderTest {
     private static final String API_KEY = "API_KEY";
     private TestFairyService service;
     private TestFairyService.Request request;
@@ -29,7 +29,7 @@ public class IosUploaderTest {
 
     @Test
     public void upload_adds_api_key_to_request() {
-        IosUploader uploader = new IosUploader(
+        IOSUploader uploader = new IOSUploader(
             service, API_KEY, "PATH_TO_IPA", null, null
         );
 
@@ -51,7 +51,7 @@ public class IosUploaderTest {
     @Test
     public void upload_adds_options_to_request() {
         Options defaultOptions = new Options.Builder().build();
-        IosUploader uploader = new IosUploader(
+        IOSUploader uploader = new IOSUploader(
             service, API_KEY, "PATH_TO_IPA", null, defaultOptions
         );
 
@@ -116,7 +116,7 @@ public class IosUploaderTest {
     }
 
     public void upload_appends_file() {
-        IosUploader uploader = new IosUploader(
+        IOSUploader uploader = new IOSUploader(
             service, API_KEY, "PATH_TO_IPA", null, null
         );
 
@@ -137,7 +137,7 @@ public class IosUploaderTest {
 
     @Test
     public void upload_notifies_started() {
-        IosUploader uploader = new IosUploader(
+        IOSUploader uploader = new IOSUploader(
             service, API_KEY, "PATH_TO_IPA", null, null
         );
 
@@ -149,7 +149,7 @@ public class IosUploaderTest {
 
     @Test
     public void upload_notifies_completed() {
-        IosUploader uploader = new IosUploader(
+        IOSUploader uploader = new IOSUploader(
             service, API_KEY, "PATH_TO_IPA", null, null
         );
 
@@ -161,7 +161,7 @@ public class IosUploaderTest {
 
     @Test
     public void upload_notifies_failures() {
-        IosUploader uploader = new IosUploader(
+        IOSUploader uploader = new IOSUploader(
             service, API_KEY, "PATH_TO_IPA", null, null
         );
 

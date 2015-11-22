@@ -2,14 +2,14 @@ package com.testfairy.uploader;
 
 import java.io.File;
 
-public class IosUploader implements Uploader {
+public class IOSUploader implements Uploader {
     private final TestFairyService service;
     private final String apiKey;
     private final String ipaPath;
     private final String symbolsMapPath;
     private final Options options;
 
-    IosUploader(
+    IOSUploader(
         TestFairyService service,
         String apiKey,
         String ipaPath,
@@ -113,14 +113,14 @@ public class IosUploader implements Uploader {
             return this;
         }
 
-        public IosUploader build() {
+        public IOSUploader build() {
             if (Strings.isEmpty(apiKey)) throw new IllegalArgumentException("API Key is empty. Please goto to https://app.testfairy.com/settings/ and use the API Key found there");
             if (Strings.isEmpty(ipaPath)) throw new IllegalArgumentException("Path to IPA not set. Call setIpaPath with path to IPA.");
             if (! new File(ipaPath).exists()) throw new IllegalArgumentException("IPA was not found at " + ipaPath);
             if (! Strings.isEmpty(symbolsPath) && ! new File(symbolsPath).exists()) throw new IllegalArgumentException("Symbols file was not found at " + symbolsPath);
             if (Strings.isEmpty(httpUserAgent)) httpUserAgent = Config.HTTP_USER_AGENT;
 
-            return new IosUploader(
+            return new IOSUploader(
                 new TestFairyService(
                     Config.SERVER_ENDPOINT,
                     httpUserAgent,

@@ -117,13 +117,13 @@ public class AndroidUploader implements Uploader {
                 .addString("video-quality", options.videoQuality)
                 .addString("video-rate", options.framesPerSecond)
                 .addString("icon-watermark", options.watermarkIcon ? "on" : "off")
+                .addString("testers-groups", options.testers)
+                .addString("notify", options.notify ? "on" : "off")
+                .addString("auto-update", options.autoUpdate ? "on" : "off")
                 .addString("record-on-background", null)                                // TODO
                 .addString("screenshot-interval", null)                                 // TODO
                 .addString("advanced-options", null)                                    // TODO
-                .addString("data-only-wifi", null)                                      // TODO
-                .addString("testers-groups", options.testers)
-                .addString("notify", options.notify ? "on" : "off")
-                .addString("auto-update", options.autoUpdate ? "on" : "off");
+                .addString("data-only-wifi", null);                                     // TODO
         }
 
         Build response = request.upload();
@@ -160,7 +160,7 @@ public class AndroidUploader implements Uploader {
             this.environment = new SdkEnvironment();
         }
 
-        public Builder enaleInstrumentation(boolean enable) {
+        public Builder enableInstrumentation(boolean enable) {
             this.enableInstrumentation = enable;
             return this;
         }
