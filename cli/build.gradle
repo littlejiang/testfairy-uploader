@@ -1,0 +1,22 @@
+apply plugin: 'java'
+
+repositories {
+    jcenter()
+}
+
+jar {
+    from {
+        (configurations.runtime).collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
+
+dependencies {
+    compile project(':uploader')
+    compile 'org.apache.commons:commons-compress:1.10'
+    compile 'commons-io:commons-io:2.4'
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-all:2.0.2-beta'
+}

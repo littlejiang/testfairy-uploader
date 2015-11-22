@@ -95,26 +95,26 @@ public class AndroidUploaderTest {
         assertEquals("icon-watermark", allKeys.get(8));
         assertEquals("off", allValues.get(8));
 
-        assertEquals("record-on-background", allKeys.get(9));
+        assertEquals("testers-groups", allKeys.get(9));
         assertEquals(null, allValues.get(9));
 
-        assertEquals("screenshot-interval", allKeys.get(10));
-        assertEquals(null, allValues.get(10));
+        assertEquals("notify", allKeys.get(10));
+        assertEquals("on", allValues.get(10));
 
-        assertEquals("advanced-options", allKeys.get(11));
-        assertEquals(null, allValues.get(11));
+        assertEquals("auto-update", allKeys.get(11));
+        assertEquals("off", allValues.get(11));
 
-        assertEquals("data-only-wifi", allKeys.get(12));
+        assertEquals("record-on-background", allKeys.get(12));
         assertEquals(null, allValues.get(12));
 
-        assertEquals("testers-groups", allKeys.get(13));
+        assertEquals("screenshot-interval", allKeys.get(13));
         assertEquals(null, allValues.get(13));
 
-        assertEquals("notify", allKeys.get(14));
-        assertEquals("on", allValues.get(14));
+        assertEquals("advanced-options", allKeys.get(14));
+        assertEquals(null, allValues.get(14));
 
-        assertEquals("auto-update", allKeys.get(15));
-        assertEquals("off", allValues.get(15));
+        assertEquals("data-only-wifi", allKeys.get(15));
+        assertEquals(null, allValues.get(15));
     }
 
     public void upload_appends_file() {
