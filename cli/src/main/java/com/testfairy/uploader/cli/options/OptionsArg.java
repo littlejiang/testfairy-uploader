@@ -5,6 +5,6 @@ import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 
 public interface OptionsArg {
-    void configure(OptionParser parser);
-    Options.Builder apply(OptionSet optionSet, Options.Builder builder);
+	void configure(OptionParser parser);
+	Options.Builder apply(OptionSet optionSet, Options.Builder builder);
 }
