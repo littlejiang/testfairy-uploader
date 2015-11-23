@@ -24,4 +24,11 @@ class ZipAligner {
             throw new RuntimeException(exception);
         }
     }
+
+    @Override
+    public String toString() {
+        return "ZipAligner{" +
+            "zipAlignPath='" + zipAlignPath + '\'' +
+            '}';
+    }
 }

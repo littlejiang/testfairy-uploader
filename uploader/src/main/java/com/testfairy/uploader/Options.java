@@ -12,15 +12,13 @@ icon-watermark Add a small watermark to app icon. Default is "off".
 comment Additional release notes for this upload. This text will be added to email notifications.
 auto-update Allows easy upgrade of all users to current version. Set to "on" to enable. Default is "off".
 notify "on" or "off"
+shake - Use this option to let the tester to shake their device and fill in a bug report that opens up.
+video-only-wifi - This option can be used in cases where you wish not to use the testers bandwidth.
+anonymous - When using this option, sessions are anonymous and account information is not collected from device.
 */
 
 import java.util.ArrayList;
 
-/*
-shake - Use this option to let the tester to shake their device and fill in a bug report that openes up.
-video-only-wifi - This option can be used in cases where you wish not to use the testers bandwidth.
-anonymous - When using this option, sessions are anonymous and account information is not collected from device.
-*/
 public class Options {
     public static class Builder {
         private ArrayList<String> testers;
@@ -187,5 +185,22 @@ public class Options {
         this.videoRecording = videoRecording;
         this.videoQuality = videoQuality;
         this.framesPerSecond = framesPerSecond;
+    }
+
+    @Override
+    public String toString() {
+        return "Options{" +
+            "notify=" + notify +
+            ", anonymous=" + anonymous +
+            ", autoUpdate=" + autoUpdate +
+            ", watermarkIcon=" + watermarkIcon +
+            ", testers='" + testers + '\'' +
+            ", metrics='" + metrics + '\'' +
+            ", maxDuration='" + maxDuration + '\'' +
+            ", comment='" + comment + '\'' +
+            ", videoRecording='" + videoRecording + '\'' +
+            ", videoQuality='" + videoQuality + '\'' +
+            ", framesPerSecond='" + framesPerSecond + '\'' +
+            '}';
     }
 }

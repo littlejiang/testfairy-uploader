@@ -52,6 +52,17 @@ class JarSigner {
         }
     }
 
+    @Override
+    public String toString() {
+        return "JarSigner{" +
+            "jarSignerPath='" + jarSignerPath + '\'' +
+            ", keyStorePath='" + keyStorePath + '\'' +
+            ", keyStoreAlias='" + keyStoreAlias + '\'' +
+            ", storePassword='" + storePassword + '\'' +
+            ", keyPassword='" + keyPassword + '\'' +
+            '}';
+    }
+
     private void check(String output) {
         if (Strings.isEmpty(output))
             return;

@@ -69,7 +69,9 @@ public class AndroidUploader implements Uploader {
                 .addString("record-on-background", null)                                // TODO
                 .addString("screenshot-interval", null)                                 // TODO
                 .addString("advanced-options", null)                                    // TODO
-                .addString("data-only-wifi", null);                                     // TODO
+                .addString("data-only-wifi", null)                                      // TODO
+                .addString("shake", null)                                               // TODO
+                .addString("video-only-wifi", null);                                    // TODO
         }
 
         Build response = request.upload();
@@ -123,12 +125,27 @@ public class AndroidUploader implements Uploader {
                 .addString("record-on-background", null)                                // TODO
                 .addString("screenshot-interval", null)                                 // TODO
                 .addString("advanced-options", null)                                    // TODO
-                .addString("data-only-wifi", null);                                     // TODO
+                .addString("data-only-wifi", null)                                      // TODO
+                .addString("shake", null)                                               // TODO
+                .addString("video-only-wifi", null);                                    // TODO
         }
 
         Build response = request.upload();
 
         if (listener != null) listener.onUploadComplete(response);
+    }
+
+    @Override
+    public String toString() {
+        return "AndroidUploader{" +
+            "service=" + service +
+            ", signer=" + signer +
+            ", apiKey='" + apiKey + '\'' +
+            ", apkPath='" + apkPath + '\'' +
+            ", proguardMapPath='" + proguardMapPath + '\'' +
+            ", enableInstrumentation=" + enableInstrumentation +
+            ", options=" + options +
+            '}';
     }
 
     public static class Builder {

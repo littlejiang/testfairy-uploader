@@ -89,4 +89,16 @@ class AndroidAppSigner {
             IOUtils.closeQuietly(zaos);
         }
     }
+
+    @Override
+    public String toString() {
+        return "AndroidAppSigner{" +
+            "apiKey='" + apiKey + '\'' +
+            ", apkPath='" + apkPath + '\'' +
+            ", jarSigner=" + jarSigner +
+            ", aligner=" + aligner +
+            ", tempDirectory='" + tempDirectory + '\'' +
+            ", service=" + service +
+            '}';
+    }
 }

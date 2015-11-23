@@ -58,6 +58,15 @@ class TestFairyService {
         }
     }
 
+    @Override
+    public String toString() {
+        return "TestFairyService{" +
+            "serverAddress='" + serverAddress + '\'' +
+            ", userAgent='" + userAgent + '\'' +
+            ", proxyInfo=" + proxyInfo +
+            '}';
+    }
+
     static class ProxyInfo {
         private final String host;
         private final int port;
@@ -83,6 +92,16 @@ class TestFairyService {
             }
 
             client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
+        }
+
+        @Override
+        public String toString() {
+            return "ProxyInfo{" +
+                "host='" + host + '\'' +
+                ", port=" + port +
+                ", user='" + user + '\'' +
+                ", password='" + password + '\'' +
+                '}';
         }
     }
 

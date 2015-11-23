@@ -15,6 +15,13 @@ public class Metrics {
         return Strings.join(metrics, ",");
     }
 
+    @Override
+    public String toString() {
+        return "Metrics{" +
+            "metrics=" + Strings.join(metrics, ",") +
+            '}';
+    }
+
     public static class Builder {
         private Set<String> metrics = new LinkedHashSet<String>(10);
 

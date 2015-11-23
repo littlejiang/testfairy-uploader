@@ -60,11 +60,11 @@ public class IOSUploaderTest {
 
         uploader.upload(null);
 
-        verify(request, times(16)).addString(keyCaptor.capture(), valueCaptor.capture());
+        verify(request, times(18)).addString(keyCaptor.capture(), valueCaptor.capture());
         List<String> allKeys = keyCaptor.getAllValues();
         List<String> allValues = valueCaptor.getAllValues();
-        assertEquals(16, allKeys.size());
-        assertEquals(16, allValues.size());
+        assertEquals(18, allKeys.size());
+        assertEquals(18, allValues.size());
 
         assertEquals("api_key", allKeys.get(0));
         assertEquals(API_KEY, allValues.get(0));
@@ -113,6 +113,12 @@ public class IOSUploaderTest {
 
         assertEquals("data-only-wifi", allKeys.get(15));
         assertEquals(null, allValues.get(15));
+
+        assertEquals("shake", allKeys.get(16));
+        assertEquals(null, allValues.get(16));
+
+        assertEquals("video-only-wifi", allKeys.get(17));
+        assertEquals(null, allValues.get(17));
     }
 
     public void upload_appends_file() {

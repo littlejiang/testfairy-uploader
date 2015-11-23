@@ -53,7 +53,9 @@ public class IOSUploader implements Uploader {
                     .addString("record-on-background", null)                        // TODO
                     .addString("screenshot-interval", null)                         // TODO: Is this different from video-rate
                     .addString("advanced-options", null)                            // TODO
-                    .addString("data-only-wifi", null);                             // TODO
+                    .addString("data-only-wifi", null)                              // TODO
+                    .addString("shake", null)                                       // TODO
+                    .addString("video-only-wifi", null);                            // TODO
             }
 
             Build response = request.upload();
@@ -62,6 +64,17 @@ public class IOSUploader implements Uploader {
         } catch (Exception exception) {
             if (listener != null) listener.onUploadFailed(exception);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "IOSUploader{" +
+            "service=" + service +
+            ", apiKey='" + apiKey + '\'' +
+            ", ipaPath='" + ipaPath + '\'' +
+            ", symbolsMapPath='" + symbolsMapPath + '\'' +
+            ", options=" + options +
+            '}';
     }
 
     public static class Builder {
@@ -79,6 +92,7 @@ public class IOSUploader implements Uploader {
 
         public Builder(String apiKey) {
             this.apiKey = apiKey;
+            this.proxyPort = -1;
         }
 
         public Builder setOptions(Options options) {
