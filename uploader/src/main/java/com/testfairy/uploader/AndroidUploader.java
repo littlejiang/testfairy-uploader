@@ -268,17 +268,26 @@ public class AndroidUploader implements Uploader {
 			}
 
 			ProcessExecutor executor = new ProcessExecutor();
-			AndroidAppSigner resigner = new AndroidAppSigner(
+			AndroidAppSigner signer = new AndroidAppSigner(
 				this.apiKey,
 				this.apkPath,
 				service,
-				new JarSigner(jarSignerPath, keystorePath, keyStoreAlias, storePassword, keyPassword, executor),
+				new JarSigner(
+					jarSignerPath,
+					keystorePath,
+					keyStoreAlias,
+					storePassword,
+					keyPassword,
+					"SHA1",
+					"MD5withRSA",
+					executor
+				),
 				new ZipAligner(zipAlignPath, executor)
 			);
 
 			return new AndroidUploader(
 				service,
-				resigner,
+				signer,
 				this.apiKey,
 				this.apkPath,
 				this.proguardMapPath,

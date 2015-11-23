@@ -44,16 +44,17 @@ public class Main {
 
 	int execute(String[] args) {
 		try {
+			AndroidOptions androidOptions = new AndroidOptions();
 			OptionParser parser = new OptionParser();
 			for (OptionsArg optionsArg : OPTION_ARGS) {
 				optionsArg.configure(parser);
 			}
+			androidOptions.configure(parser);
 
 			OptionSpec<File> mappingArg = parser.acceptsAll(Arrays.asList("proguard-mapping", "symbols-file")).withRequiredArg().ofType(File.class);
 			OptionSpec<String> apiKeyArg = parser.accepts("api-key", "Your API application key. See https://app.testfairy.com/settings for details").withRequiredArg();
 			OptionSpec<File> inputArg = parser.nonOptions("APK or IPA file data").ofType(File.class);
 			OptionSpec<Void> help = parser.acceptsAll(Arrays.asList("h", "?", "help"), "Show TestFairy uploader usage").forHelp();
-			OptionSpec<String> instrumentation = parser.accepts("instrumentation", "Skip instrumentation of app (Android only), \"on\", or \"off\". Defaults to \"on\"").withRequiredArg();
 
 			OptionSet arguments = parser.parse(args);
 
@@ -106,18 +107,12 @@ public class Main {
 
 			Uploader uploader = null;
 			if (AppUtils.isAndroidAPK(files)) {
-				boolean enableInstrumentation = true;
-				if (arguments.has(instrumentation)) {
-					String value = arguments.valueOf(instrumentation);
-					enableInstrumentation = ! "off".equals(value);
-				}
-
-				uploader = new AndroidUploader.Builder(api)
+				 AndroidUploader.Builder android = new AndroidUploader.Builder(api)
 					.setApkPath(input.getPath())
 					.setProguardMapPath(mapping == null ? null : mapping.getPath())
-					.setOptions(options == null ? null : options.build())
-					.enableInstrumentation(enableInstrumentation)
-					.build();
+					.setOptions(options == null ? null : options.build());
+				androidOptions.apply(arguments, android);
+				uploader = android.build();
 			} else if (AppUtils.isAppleIPA(files)) {
 				uploader = new IOSUploader.Builder(api)
 					.setIpaPath(input.getPath())
