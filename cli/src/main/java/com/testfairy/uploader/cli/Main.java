@@ -1,6 +1,7 @@
 package com.testfairy.uploader.cli;
 
 import com.testfairy.uploader.*;
+import com.testfairy.uploader.cli.options.*;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;

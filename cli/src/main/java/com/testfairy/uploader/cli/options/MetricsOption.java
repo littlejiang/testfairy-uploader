@@ -1,14 +1,13 @@
-package com.testfairy.uploader.cli;
+package com.testfairy.uploader.cli.options;
 
 import com.testfairy.uploader.Metrics;
 import com.testfairy.uploader.Options;
+import com.testfairy.uploader.cli.StringUtils;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
 
-import java.util.Arrays;
-
-class MetricsOption implements OptionsArg {
+public class MetricsOption implements OptionsArg {
 
     private OptionSpec<String> metrics;
 

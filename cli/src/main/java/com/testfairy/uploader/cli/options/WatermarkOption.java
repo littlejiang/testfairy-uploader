@@ -1,11 +1,11 @@
-package com.testfairy.uploader.cli;
+package com.testfairy.uploader.cli.options;
 
 import com.testfairy.uploader.Options;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
 
-class WatermarkOption implements OptionsArg {
+public class WatermarkOption implements OptionsArg {
     private OptionSpec<Void> watermark;
 
     @Override
