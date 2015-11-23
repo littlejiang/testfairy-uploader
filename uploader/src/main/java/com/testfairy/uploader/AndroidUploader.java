@@ -150,11 +150,14 @@ public class AndroidUploader implements Uploader {
 
 	public static class Builder {
 		private final String apiKey;
+
 		private Options options;
 		private String keystorePath;
 		private String storePassword;
 		private String keyPassword;
 		private String keyStoreAlias;
+		private String digestAlgorithm;
+		private String signatureAlgorithm;
 		private String zipAlignPath;
 		private String jarSignerPath;
 		private boolean enableInstrumentation;
@@ -174,6 +177,8 @@ public class AndroidUploader implements Uploader {
 			this.apiKey = apiKey;
 			this.enableInstrumentation = true;
 			this.proxyPort = -1;
+			this.digestAlgorithm = "SHA1";
+			this.signatureAlgorithm = "MD5withRSA";
 			this.environment = new SdkEnvironment();
 		}
 
@@ -223,6 +228,16 @@ public class AndroidUploader implements Uploader {
 			return this;
 		}
 
+		public Builder setDigestAlgorithm(String digestAlgorithm) {
+			this.digestAlgorithm = digestAlgorithm;
+			return this;
+		}
+
+		public Builder setSignatureAlgorithm(String signatureAlgorithm) {
+			this.signatureAlgorithm = signatureAlgorithm;
+			return this;
+		}
+
 		public Builder setZipAlignPath(String zipAlignPath) {
 			this.zipAlignPath = zipAlignPath;
 			return this;
@@ -261,6 +276,8 @@ public class AndroidUploader implements Uploader {
 				if (Strings.isEmpty(keystorePath)) throw new IllegalArgumentException("Keystore path cannot be empty");
 				if (Strings.isEmpty(keyStoreAlias)) throw new IllegalArgumentException("Keystore alias cannot be empty");
 				if (Strings.isEmpty(storePassword)) throw new IllegalArgumentException("Store password cannot be empty");
+				if (Strings.isEmpty(digestAlgorithm)) throw new IllegalArgumentException("Digest Algorithm cannot be empty");
+				if (Strings.isEmpty(signatureAlgorithm)) throw new IllegalArgumentException("Signature Algorithm cannot be empty");
 
 				if (! new File(jarSignerPath).exists()) throw new IllegalArgumentException("jarsigner was not found at " + jarSignerPath);
 				if (! new File(zipAlignPath).exists()) throw new IllegalArgumentException("zipAlignPath was not found at " + zipAlignPath);
@@ -278,8 +295,8 @@ public class AndroidUploader implements Uploader {
 					keyStoreAlias,
 					storePassword,
 					keyPassword,
-					"SHA1",
-					"MD5withRSA",
+					digestAlgorithm,
+					signatureAlgorithm,
 					executor
 				),
 				new ZipAligner(zipAlignPath, executor)

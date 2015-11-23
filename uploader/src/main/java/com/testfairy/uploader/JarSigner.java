@@ -17,8 +17,8 @@ class JarSigner {
 	private final String storePassword;
 	private final String keyPassword;
 	private final String digestAlgorithm;
+	private final String signatureAlgorithm;
 	private final ProcessExecutor executor;
-	private final String signingAlgorithm;
 
 	public JarSigner(
 		String jarSignerPath,
@@ -27,7 +27,7 @@ class JarSigner {
 		String storePassword,
 		String keyPassword,
 		String digestAlgorithm,
-		String signingAlgorithm,
+		String signatureAlgorithm,
 		ProcessExecutor executor
 	) {
 		this.jarSignerPath = jarSignerPath;
@@ -36,7 +36,7 @@ class JarSigner {
 		this.storePassword = storePassword;
 		this.keyPassword = keyPassword;
 		this.digestAlgorithm = digestAlgorithm;
-		this.signingAlgorithm = signingAlgorithm;
+		this.signatureAlgorithm = signatureAlgorithm;
 		this.executor = executor;
 	}
 
@@ -66,6 +66,8 @@ class JarSigner {
 			", keyStoreAlias='" + keyStoreAlias + '\'' +
 			", storePassword='" + storePassword + '\'' +
 			", keyPassword='" + keyPassword + '\'' +
+			", digestAlgorithm='" + digestAlgorithm + '\'' +
+			", signatureAlgorithm='" + signatureAlgorithm + '\'' +
 			'}';
 	}
 
@@ -92,7 +94,7 @@ class JarSigner {
 		command.add("-digestalg");
 		command.add(digestAlgorithm);
 		command.add("-sigalg");
-		command.add(signingAlgorithm);
+		command.add(signatureAlgorithm);
 		command.add(apkPath.getAbsolutePath());
 		command.add(keyStoreAlias);
 		return command;

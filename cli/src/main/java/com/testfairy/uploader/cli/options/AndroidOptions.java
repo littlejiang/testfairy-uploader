@@ -5,14 +5,14 @@ import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
 
-import java.io.File;
-
 public class AndroidOptions {
 	private OptionSpec<String> instrumentation;
 	private OptionSpec<String> keystorePath;
 	private OptionSpec<String> keystoreAlias;
 	private OptionSpec<String> keyPassword;
 	private OptionSpec<String> storePassword;
+	private OptionSpec<String> digestAlgorithm;
+	private OptionSpec<String> signatureAlgorithm;
 
 	public void configure(OptionParser parser) {
 		instrumentation = parser.accepts("instrumentation", "Skip instrumentation of app (Android only), \"on\", or \"off\". Defaults to \"on\"").withRequiredArg();
@@ -20,6 +20,8 @@ public class AndroidOptions {
 		keystoreAlias = parser.accepts("alias", "Keystore alias").withRequiredArg();
 		keyPassword = parser.accepts("keypass", "Password for private key (if different)").withRequiredArg();
 		storePassword = parser.accepts("storepass", "Password for keystore integrity").withRequiredArg();
+		digestAlgorithm = parser.accepts("digestalg", "Name of digest algorithm").withRequiredArg();
+		signatureAlgorithm = parser.accepts("sigalg", "Name of signature algorithm").withRequiredArg();
 	};
 
 	public void apply(OptionSet arguments, AndroidUploader.Builder android) {
@@ -38,7 +40,8 @@ public class AndroidOptions {
 			value(arguments, keystoreAlias),
 			value(arguments, storePassword),
 			value(arguments, keyPassword)
-		);
+		).setDigestAlgorithm(value(arguments, digestAlgorithm))
+		.setSignatureAlgorithm(value(arguments, signatureAlgorithm));
 	}
 
 	private static String value(OptionSet arguments, OptionSpec<String> option) {
