@@ -34,7 +34,7 @@ class AndroidAppSigner {
         this.tempDirectory = System.getProperty("java.io.tmpdir");
     }
 
-    File resign(Build build) {
+    public File resign(Build build) {
         String baseName = FilenameUtils.getBaseName(apkPath);
 
         File download = service.download(
@@ -52,7 +52,7 @@ class AndroidAppSigner {
         return download;
     }
 
-    void removeSignature(String apkFilename, String outFilename) {
+    public void removeSignature(String apkFilename, String outFilename) {
         ZipArchiveInputStream zais = null;
         ZipArchiveOutputStream zaos = null;
 
