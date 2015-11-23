@@ -22,6 +22,7 @@ public class Main {
     private static final int EXIT_NO_ARTIFACT_FILE = -3;
     private static final int EXIT_INVALID_ARTIFACT_FILE = -4;
     private static final int EXIT_INVALID_ARTIFACT_FILE_TYPE = -5;
+    private static final int EXIT_UNEXPECTED_EXCEPTION = -5;
 
     private final List<OptionsArg> OPTION_ARGS = Arrays.asList(
         new AnonymousOption(),
@@ -122,6 +123,7 @@ public class Main {
                 return EXIT_INVALID_ARTIFACT_FILE_TYPE;
             }
 
+            final int [] result = {EXIT_SUCCESS};
             uploader.upload(new Listener() {
                 @Override
                 public void onUploadStarted() {
@@ -136,7 +138,8 @@ public class Main {
                 @Override
                 public void onUploadFailed(Throwable throwable) {
                     System.err.println("Upload failed");
-                    throw new RuntimeException(throwable);
+                    System.err.println(throwable.getMessage());
+                    result[0] = EXIT_UNEXPECTED_EXCEPTION;
                 }
 
                 @Override
@@ -145,10 +148,11 @@ public class Main {
                 }
             });
 
-            return 0;
+            return result[0];
         } catch (Exception exception) {
             System.err.println("Unexpected Failure");
-            throw new RuntimeException(exception);
+            System.err.println(exception.getMessage());
+            return EXIT_UNEXPECTED_EXCEPTION;
         }
     }
 
