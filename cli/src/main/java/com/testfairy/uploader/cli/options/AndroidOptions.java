@@ -40,8 +40,13 @@ public class AndroidOptions {
 			value(arguments, keystoreAlias),
 			value(arguments, storePassword),
 			value(arguments, keyPassword)
-		).setDigestAlgorithm(value(arguments, digestAlgorithm))
-		.setSignatureAlgorithm(value(arguments, signatureAlgorithm));
+		);
+
+		if (arguments.has(digestAlgorithm))
+			android.setDigestAlgorithm(value(arguments, digestAlgorithm));
+
+		if (arguments.has(signatureAlgorithm))
+			android.setSignatureAlgorithm(value(arguments, signatureAlgorithm));
 	}
 
 	private static String value(OptionSet arguments, OptionSpec<String> option) {
