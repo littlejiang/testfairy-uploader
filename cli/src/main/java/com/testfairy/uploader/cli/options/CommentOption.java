@@ -1,9 +1,15 @@
 package com.testfairy.uploader.cli.options;
 
 import com.testfairy.uploader.Options;
+import com.testfairy.uploader.cli.StringUtils;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
+import org.apache.commons.io.IOUtils;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.nio.file.Files;
 
 public class CommentOption implements OptionsArg {
 	private OptionSpec<String> comment;
@@ -19,6 +25,25 @@ public class CommentOption implements OptionsArg {
 			return builder;
 
 		String value = optionSet.valueOf(comment);
+		if (StringUtils.isEmpty(value))
+			return builder;
+
+
+		if (! value.startsWith("@")) {
+			return addComment(builder, value);
+		}
+
+		try {
+			String path = value.substring(1);
+			File commitMessage = new File(path);
+			String message = IOUtils.toString(new FileInputStream(commitMessage));
+			return addComment(builder, message);
+		} catch (Exception exception) {
+			throw new RuntimeException(exception);
+		}
+	}
+
+	private Options.Builder addComment(Options.Builder builder, String value) {
 		if (builder == null)
 			return new Options.Builder().setComment(value);
 
