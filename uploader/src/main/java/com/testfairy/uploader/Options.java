@@ -17,6 +17,10 @@ video-only-wifi - This option can be used in cases where you wish not to use the
 anonymous - When using this option, sessions are anonymous and account information is not collected from device.
 */
 
+import org.apache.commons.io.IOUtils;
+
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 
 public class Options {
@@ -128,6 +132,7 @@ public class Options {
 			String testers = this.testers == null ? null : Strings.join(this.testers, ",");
 			String metrics = this.metrics == null ? null : this.metrics.asFormString();
 			if (framesPerSecond < 1.0f) throw new IllegalArgumentException("Frame rate cannot less than 1.0");
+			comment = checkIfFile(comment);
 
 			return new Options(
 				notify,
@@ -142,6 +147,25 @@ public class Options {
 				videoQuality,
 				String.valueOf(framesPerSecond)
 			);
+		}
+
+		private String checkIfFile(String comment) {
+			if (Strings.isEmpty(comment)) {
+				return comment;
+			}
+
+			if (! comment.startsWith("@")) {
+				return comment;
+			}
+
+			try {
+				String path = comment.substring(1);
+				File commitMessage = new File(path);
+
+				return IOUtils.toString(new FileInputStream(commitMessage));
+			} catch (Exception exception) {
+				throw new RuntimeException(exception);
+			}
 		}
 
 		private static void assertNotEmpty(String key, String value) {

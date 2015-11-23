@@ -29,18 +29,7 @@ public class CommentOption implements OptionsArg {
 			return builder;
 
 
-		if (! value.startsWith("@")) {
-			return addComment(builder, value);
-		}
-
-		try {
-			String path = value.substring(1);
-			File commitMessage = new File(path);
-			String message = IOUtils.toString(new FileInputStream(commitMessage));
-			return addComment(builder, message);
-		} catch (Exception exception) {
-			throw new RuntimeException(exception);
-		}
+		return addComment(builder, value);
 	}
 
 	private Options.Builder addComment(Options.Builder builder, String value) {
