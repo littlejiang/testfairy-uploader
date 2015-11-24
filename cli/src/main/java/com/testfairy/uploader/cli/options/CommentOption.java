@@ -9,7 +9,6 @@ import org.apache.commons.io.IOUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.nio.file.Files;
 
 public class CommentOption implements OptionsArg {
 	private OptionSpec<String> comment;
