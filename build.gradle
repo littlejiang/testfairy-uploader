@@ -1,0 +1,85 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+repositories {
+	jcenter()
+}
+
+dependencies {
+	compile 'org.apache.httpcomponents:httpmime:4.5.1'
+	compile 'org.apache.commons:commons-compress:1.10'
+	compile 'org.apache.httpcomponents:httpcore:4.4.4'
+	compile 'commons-io:commons-io:2.4'
+	compile 'com.google.code.gson:gson:2.4'
+
+	testCompile 'junit:junit:4.12'
+	testCompile 'org.mockito:mockito-all:2.0.2-beta'
+}
+
+task javadocJar(type: Jar) {
+	classifier = 'javadoc'
+	from javadoc
+}
+
+task sourcesJar(type: Jar) {
+	classifier = 'sources'
+	from sourceSets.main.allSource
+}
+
+artifacts {
+	archives javadocJar, sourcesJar
+}
+
+signing {
+	sign configurations.archives
+}
+
+uploadArchives {
+	repositories {
+		mavenDeployer {
+			beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+			pom.groupId = "com.testfairy"
+			pom.artifactId = "testfairy-uploader"
+			pom.version = "1.0-SNAPSHOT"
+
+			repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+				authentication(userName: ossrhUsername, password: ossrhPassword)
+			}
+
+			snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+				authentication(userName: ossrhUsername, password: ossrhPassword)
+			}
+
+			pom.project {
+				name 'TestFairy Uploader'
+				packaging 'jar'
+				artifactId 'testfairy-uploader'
+				description 'TestFairy uploader Java library'
+				url 'https://www.testfairy.com'
+
+				scm {
+					connection 'scm:git:https://github.com/testfairy/testfairy-uploader/'
+					developerConnection 'scm:git:https://github.com/testfairy/testfairy-uploader/'
+					url 'https://github.com/testfairy/testfairy-uploader/'
+				}
+
+				licenses {
+					license {
+						name 'The Apache License, Version 2.0'
+						url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+					}
+				}
+
+				developers {
+					developer {
+						id 'gmegidish'
+						name 'Gil Megidish'
+						email 'gil@testfairy.com'
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,4 +1,7 @@
 language: android
 
 script:
- - gradle jar test
+ - gradle test
+
+after_success:
+  - .scripts/deploy.sh
