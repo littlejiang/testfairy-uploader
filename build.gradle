@@ -35,6 +35,14 @@ signing {
 	sign configurations.archives
 }
 
+def getRepositoryUsername() {
+	return hasProperty('SONATYPE_USERNAME') ? SONATYPE_USERNAME : System.getenv("SONATYPE_USERNAME")
+}
+
+def getRepositoryPassword() {
+	return hasProperty('SONATYPE_PASSWORD') ? SONATYPE_PASSWORD : System.getenv("SONATYPE_PASSWORD")
+}
+
 uploadArchives {
 	repositories {
 		mavenDeployer {
@@ -45,11 +53,11 @@ uploadArchives {
 			pom.version = "1.0-SNAPSHOT"
 
 			repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-				authentication(userName: ossrhUsername, password: ossrhPassword)
+				authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
 			}
 
 			snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-				authentication(userName: ossrhUsername, password: ossrhPassword)
+				authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
 			}
 
 			pom.project {
