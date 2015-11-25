@@ -51,7 +51,8 @@ public class AndroidUploader implements Uploader {
 		request
 			.addString("api_key", apiKey)
 			.addFile("apk_file", new File(apkPath))
-			.addString("changelog", null);                                              // TODO
+			.addString("changelog", null)                                              // TODO
+			.addString("instrumentation", enableInstrumentation ? "on" : "off");
 
 		if (! Strings.isEmpty(proguardMapPath))
 			request.addFile("proguard_file", new File(proguardMapPath));
@@ -105,7 +106,8 @@ public class AndroidUploader implements Uploader {
 		request
 			.addString("api_key", apiKey)
 			.addFile("apk_file", new File(apkPath))
-			.addString("changelog", null);                                              // TODO
+			.addString("changelog", null)                                              // TODO
+			.addString("instrumentation", enableInstrumentation ? "on" : "off");
 
 		if (! Strings.isEmpty(proguardMapPath))
 			request.addFile("proguard_file", new File(proguardMapPath));
