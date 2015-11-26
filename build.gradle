@@ -51,7 +51,7 @@ uploadArchives {
 
 			pom.groupId = "com.testfairy"
 			pom.artifactId = "testfairy-uploader"
-			pom.version = "1.0-SNAPSHOT"
+			pom.version = "1.0.0-SNAPSHOT"
 
 			repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
 				authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
@@ -92,3 +92,4 @@ uploadArchives {
 		}
 	}
 }
+
