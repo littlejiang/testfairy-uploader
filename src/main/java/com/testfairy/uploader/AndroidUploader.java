@@ -45,7 +45,7 @@ public class AndroidUploader implements Uploader {
 
 	private void withInstrumentation(Listener listener) {
 		if (listener != null) listener.onUploadStarted();
-
+		if (listener != null) listener.onProgress(0f);
 		TestFairyService.Request request = service.newRequest();
 
 		request
@@ -75,8 +75,11 @@ public class AndroidUploader implements Uploader {
 				.addString("video-only-wifi", null);                                    // TODO
 		}
 
+		if (listener != null) listener.onProgress(33f);
 		Build response = request.upload();
+		if (listener != null) listener.onProgress(34f);
 		File signed = signer.resign(response);
+		if (listener != null) listener.onProgress(66f);
 
 		// Signing
 		request = service.newRequest();
@@ -93,7 +96,9 @@ public class AndroidUploader implements Uploader {
 				.addString("notify", value(options.notify, "on", "off"))
 				.addString("auto-update", value(options.autoUpdate, "on", "off"));
 		}
+		if (listener != null) listener.onProgress(67f);
 		response = request.uploadSigned();
+		if (listener != null) listener.onProgress(100f);
 		signed.delete();
 
 		if (listener != null) listener.onUploadComplete(response);
@@ -101,6 +106,7 @@ public class AndroidUploader implements Uploader {
 
 	private void withoutInstrumentation(Listener listener) {
 		if (listener != null) listener.onUploadStarted();
+		if (listener != null) listener.onProgress(0f);
 		TestFairyService.Request request = service.newRequest();
 
 		request
@@ -132,7 +138,9 @@ public class AndroidUploader implements Uploader {
 				.addString("video-only-wifi", null);                                    // TODO
 		}
 
+		if (listener != null) listener.onProgress(50f);
 		Build response = request.upload();
+		if (listener != null) listener.onProgress(100f);
 
 		if (listener != null) listener.onUploadComplete(response);
 	}

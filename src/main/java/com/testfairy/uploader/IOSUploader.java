@@ -27,6 +27,7 @@ public class IOSUploader implements Uploader {
 	public void upload(Listener listener) {
 		try {
 			if (listener != null) listener.onUploadStarted();
+			if (listener != null) listener.onProgress(0f);
 
 			TestFairyService.Request request = service.newRequest();
 
@@ -58,7 +59,9 @@ public class IOSUploader implements Uploader {
 					.addString("video-only-wifi", null);                            // TODO
 			}
 
+			if (listener != null) listener.onProgress(50f);
 			Build response = request.upload();
+			if (listener != null) listener.onProgress(100f);
 
 			if (listener != null) listener.onUploadComplete(response);
 		} catch (Exception exception) {
