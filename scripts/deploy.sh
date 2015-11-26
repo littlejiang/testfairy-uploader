@@ -17,6 +17,6 @@ elif [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
 #elif [ "$TRAVIS_BRANCH" != "$BRANCH" ]; then
 else
   echo "Deploying to staging..."
-  gradle uploadArchives
+  ./gradlew uploadArchives
   echo "Release deployed!"
 fi
