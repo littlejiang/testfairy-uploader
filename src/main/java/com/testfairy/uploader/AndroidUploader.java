@@ -167,7 +167,6 @@ public class AndroidUploader implements Uploader {
 		private String keyStoreAlias;
 		private String digestAlgorithm;
 		private String signatureAlgorithm;
-		private String zipAlignPath;
 		private String jarSignerPath;
 		private boolean enableInstrumentation;
 
@@ -247,11 +246,6 @@ public class AndroidUploader implements Uploader {
 			return this;
 		}
 
-		public Builder setZipAlignPath(String zipAlignPath) {
-			this.zipAlignPath = zipAlignPath;
-			return this;
-		}
-
 		public Builder setJarSignerPath(String jarSignerPath) {
 			this.jarSignerPath = jarSignerPath;
 			return this;
@@ -278,10 +272,8 @@ public class AndroidUploader implements Uploader {
 
 			if (enableInstrumentation) {
 				if (Strings.isEmpty(jarSignerPath)) jarSignerPath = environment.locateJarsigner();
-				if (Strings.isEmpty(zipAlignPath)) zipAlignPath = environment.locateZipalign();
 
 				if (Strings.isEmpty(jarSignerPath)) throw new IllegalArgumentException("Path to jarsigner cannot be null");
-				if (Strings.isEmpty(zipAlignPath)) throw new IllegalArgumentException("Path to zipalign cannot be null");
 				if (Strings.isEmpty(keystorePath)) throw new IllegalArgumentException("Keystore path cannot be empty");
 				if (Strings.isEmpty(keyStoreAlias)) throw new IllegalArgumentException("Keystore alias cannot be empty");
 				if (Strings.isEmpty(storePassword)) throw new IllegalArgumentException("Store password cannot be empty");
@@ -289,7 +281,6 @@ public class AndroidUploader implements Uploader {
 				if (Strings.isEmpty(signatureAlgorithm)) throw new IllegalArgumentException("Signature Algorithm cannot be empty");
 
 				if (! new File(jarSignerPath).exists()) throw new IllegalArgumentException("jarsigner was not found at " + jarSignerPath);
-				if (! new File(zipAlignPath).exists()) throw new IllegalArgumentException("zipAlignPath was not found at " + zipAlignPath);
 				if (! new File(keystorePath).exists()) throw new IllegalArgumentException("Keystore was not found at " + keystorePath);
 			}
 
@@ -308,7 +299,7 @@ public class AndroidUploader implements Uploader {
 					signatureAlgorithm,
 					executor
 				),
-				new ZipAligner(zipAlignPath, executor)
+				new ZipAligner()
 			);
 
 			return new AndroidUploader(

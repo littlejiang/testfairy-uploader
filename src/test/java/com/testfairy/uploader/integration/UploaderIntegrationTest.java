@@ -37,7 +37,7 @@ public class UploaderIntegrationTest {
 	}
 
 	@Test
-	public void upload_iOS_APK_unsigned() {
+	public void upload_Android_APK_unsigned() {
 		Options options = new Options.Builder()
 			.notifyTesters(true)
 			.setComment("Uploading iOS IPA")
@@ -57,7 +57,7 @@ public class UploaderIntegrationTest {
 	}
 
 	@Test
-	public void upload_iOS_APK_signed() {
+	public void upload_Android_APK_signed() {
 		Options options = new Options.Builder()
 			.notifyTesters(true)
 			.setComment("Uploading iOS IPA")

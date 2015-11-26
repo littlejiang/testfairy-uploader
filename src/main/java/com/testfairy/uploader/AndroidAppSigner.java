@@ -45,7 +45,7 @@ class AndroidAppSigner {
 		File temporaryPath = new File(String.format("%s/testfairy-%s.temp.apk", tempDirectory, baseName));
 		removeSignature(download.getAbsolutePath(), temporaryPath.getAbsolutePath());
 		jarSigner.sign(temporaryPath);
-		aligner.align(temporaryPath, download.getAbsolutePath());
+		aligner.align(temporaryPath, download);
 		jarSigner.verify(download);
 		temporaryPath.delete();
 
