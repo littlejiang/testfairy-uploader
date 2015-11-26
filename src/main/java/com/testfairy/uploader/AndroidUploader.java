@@ -276,10 +276,10 @@ public class AndroidUploader implements Uploader {
 				)
 			);
 
-			if (Strings.isEmpty(jarSignerPath)) jarSignerPath = environment.locateJarsigner();
-			if (Strings.isEmpty(zipAlignPath)) zipAlignPath = environment.locateZipalign();
-
 			if (enableInstrumentation) {
+				if (Strings.isEmpty(jarSignerPath)) jarSignerPath = environment.locateJarsigner();
+				if (Strings.isEmpty(zipAlignPath)) zipAlignPath = environment.locateZipalign();
+
 				if (Strings.isEmpty(jarSignerPath)) throw new IllegalArgumentException("Path to jarsigner cannot be null");
 				if (Strings.isEmpty(zipAlignPath)) throw new IllegalArgumentException("Path to zipalign cannot be null");
 				if (Strings.isEmpty(keystorePath)) throw new IllegalArgumentException("Keystore path cannot be empty");
