@@ -32,8 +32,7 @@ public class IOSUploader implements Uploader {
 
 			request
 				.addString("api_key", apiKey)
-				.addFile("file", new File(ipaPath))
-				.addString("changelog", null);                                      // TODO
+				.addFile("file", new File(ipaPath));
 
 			if (! Strings.isEmpty(symbolsMapPath))
 				request.addFile("symbols_file", new File(symbolsMapPath));
@@ -46,10 +45,11 @@ public class IOSUploader implements Uploader {
 					.addString("video", options.videoRecording)
 					.addString("video-quality", options.videoQuality)
 					.addString("video-rate", options.framesPerSecond)
-					.addString("icon-watermark", options.watermarkIcon ? "on" : "off")
+					.addString("icon-watermark", value(options.watermarkIcon, "on", "off"))
 					.addString("testers-groups", options.testers)
-					.addString("notify", options.notify ? "on" : "off")
-					.addString("auto-update", options.autoUpdate ? "on" : "off")
+					.addString("notify", value(options.notify, "on", "off"))
+					.addString("auto-update", value(options.autoUpdate, "on", "off"))
+					.addString("changelog", options.changelog)
 					.addString("record-on-background", null)                        // TODO
 					.addString("screenshot-interval", null)                         // TODO: Is this different from video-rate
 					.addString("advanced-options", null)                            // TODO
@@ -64,6 +64,13 @@ public class IOSUploader implements Uploader {
 		} catch (Exception exception) {
 			if (listener != null) listener.onUploadFailed(exception);
 		}
+	}
+
+	private static String value(Boolean flag, String yes, String no) {
+		if (flag == null)
+			return null;
+
+		return flag ? yes : no;
 	}
 
 	@Override

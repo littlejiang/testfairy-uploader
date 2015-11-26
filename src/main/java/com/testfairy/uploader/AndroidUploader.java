@@ -51,7 +51,6 @@ public class AndroidUploader implements Uploader {
 		request
 			.addString("api_key", apiKey)
 			.addFile("apk_file", new File(apkPath))
-			.addString("changelog", null)                                              // TODO
 			.addString("instrumentation", enableInstrumentation ? "on" : "off");
 
 		if (! Strings.isEmpty(proguardMapPath))
@@ -66,7 +65,8 @@ public class AndroidUploader implements Uploader {
 				.addString("video", options.videoRecording)
 				.addString("video-quality", options.videoQuality)
 				.addString("video-rate", options.framesPerSecond)
-				.addString("icon-watermark", options.watermarkIcon ? "on" : "off")
+				.addString("icon-watermark", value(options.watermarkIcon, "on", "off"))
+				.addString("changelog", options.changelog)
 				.addString("record-on-background", null)                                // TODO
 				.addString("screenshot-interval", null)                                 // TODO
 				.addString("advanced-options", null)                                    // TODO
@@ -90,8 +90,8 @@ public class AndroidUploader implements Uploader {
 		if (options != null) {
 			request
 				.addString("testers-groups", options.testers)
-				.addString("notify", options.notify ? "on" : "off")
-				.addString("auto-update", options.autoUpdate ? "on" : "off");
+				.addString("notify", value(options.notify, "on", "off"))
+				.addString("auto-update", value(options.autoUpdate, "on", "off"));
 		}
 		response = request.uploadSigned();
 		signed.delete();
@@ -106,7 +106,6 @@ public class AndroidUploader implements Uploader {
 		request
 			.addString("api_key", apiKey)
 			.addFile("apk_file", new File(apkPath))
-			.addString("changelog", null)                                              // TODO
 			.addString("instrumentation", enableInstrumentation ? "on" : "off");
 
 		if (! Strings.isEmpty(proguardMapPath))
@@ -120,10 +119,11 @@ public class AndroidUploader implements Uploader {
 				.addString("video", options.videoRecording)
 				.addString("video-quality", options.videoQuality)
 				.addString("video-rate", options.framesPerSecond)
-				.addString("icon-watermark", options.watermarkIcon ? "on" : "off")
+				.addString("icon-watermark", value(options.watermarkIcon, "on", "off"))
 				.addString("testers-groups", options.testers)
-				.addString("notify", options.notify ? "on" : "off")
-				.addString("auto-update", options.autoUpdate ? "on" : "off")
+				.addString("notify", value(options.notify, "on", "off"))
+				.addString("auto-update", value(options.autoUpdate, "on", "off"))
+				.addString("changelog", options.changelog)
 				.addString("record-on-background", null)                                // TODO
 				.addString("screenshot-interval", null)                                 // TODO
 				.addString("advanced-options", null)                                    // TODO
@@ -135,6 +135,13 @@ public class AndroidUploader implements Uploader {
 		Build response = request.upload();
 
 		if (listener != null) listener.onUploadComplete(response);
+	}
+
+	private static String value(Boolean flag, String yes, String no) {
+		if (flag == null)
+			return null;
+
+		return flag ? yes : no;
 	}
 
 	@Override

@@ -40,11 +40,11 @@ public class AndroidUploaderTest {
 
 		uploader.upload(null);
 
-		verify(request, times(3)).addString(keyCaptor.capture(), valueCaptor.capture());
+		verify(request, times(2)).addString(keyCaptor.capture(), valueCaptor.capture());
 		List<String> allKeys = keyCaptor.getAllValues();
 		List<String> allValues = valueCaptor.getAllValues();
-		assertEquals(3, allKeys.size());
-		assertEquals(3, allValues.size());
+		assertEquals(2, allKeys.size());
+		assertEquals(2, allValues.size());
 
 		assertEquals("api_key", allKeys.get(0));
 		assertEquals(API_KEY, allValues.get(0));
@@ -72,9 +72,6 @@ public class AndroidUploaderTest {
 		assertEquals("api_key", allKeys.get(index));
 		assertEquals(API_KEY, allValues.get(index++));
 
-		assertEquals("changelog", allKeys.get(index));
-		assertEquals(null, allValues.get(index++));
-
 		assertEquals("instrumentation", allKeys.get(index));
 		assertEquals("off", allValues.get(index++));
 
@@ -97,16 +94,19 @@ public class AndroidUploaderTest {
 		assertEquals("1.0", allValues.get(index++));
 
 		assertEquals("icon-watermark", allKeys.get(index));
-		assertEquals("off", allValues.get(index++));
+		assertEquals(null, allValues.get(index++));
 
 		assertEquals("testers-groups", allKeys.get(index));
 		assertEquals(null, allValues.get(index++));
 
 		assertEquals("notify", allKeys.get(index));
-		assertEquals("on", allValues.get(index++));
+		assertEquals(null, allValues.get(index++));
 
 		assertEquals("auto-update", allKeys.get(index));
-		assertEquals("off", allValues.get(index++));
+		assertEquals(null, allValues.get(index++));
+
+		assertEquals("changelog", allKeys.get(index));
+		assertEquals(null, allValues.get(index++));
 
 		assertEquals("record-on-background", allKeys.get(index));
 		assertEquals(null, allValues.get(index++));

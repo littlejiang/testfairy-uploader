@@ -26,25 +26,22 @@ import java.util.ArrayList;
 public class Options {
 	public static class Builder {
 		private ArrayList<String> testers;
-		private boolean notify;
-		private boolean anonymous;
-		private boolean autoUpdate;
-		private boolean watermarkIcon;
+		private Boolean notify;
+		private Boolean anonymous;
+		private Boolean autoUpdate;
+		private Boolean watermarkIcon;
 		private Metrics metrics;
 		private String maxDuration;
 		private String comment;
 		private String videoRecording;
 		private String videoQuality;
+		private String changelog;
 		private float framesPerSecond;
 
 		public Builder() {
-			this.notify = true;
-			this.anonymous = false;
 			this.maxDuration = "10m";
 			this.videoRecording = "on";
 			this.framesPerSecond = 1.0f;
-			this.autoUpdate = false;
-			this.watermarkIcon = false;
 			this.videoQuality = "high";
 		}
 
@@ -126,6 +123,11 @@ public class Options {
 			return this;
 		}
 
+		public Builder setChangelog(String changelog) {
+			this.changelog = changelog;
+			return this;
+		}
+
 		public Options build() {
 			// TODO: Validate maxDurations
 			assertNotEmpty("maxDuration", this.maxDuration);
@@ -145,7 +147,8 @@ public class Options {
 				comment,
 				videoRecording,
 				videoQuality,
-				String.valueOf(framesPerSecond)
+				String.valueOf(framesPerSecond),
+				changelog
 			);
 		}
 
@@ -173,10 +176,10 @@ public class Options {
 		}
 	}
 
-	final boolean notify;
-	final boolean anonymous;
-	final boolean autoUpdate;
-	final boolean watermarkIcon;
+	final Boolean notify;
+	final Boolean anonymous;
+	final Boolean autoUpdate;
+	final Boolean watermarkIcon;
 	final String testers;
 	final String metrics;
 	final String maxDuration;
@@ -184,19 +187,21 @@ public class Options {
 	final String videoRecording;
 	final String videoQuality;
 	final String framesPerSecond;
+	final String changelog;
 
 	Options(
-		boolean notify,
-		boolean anonymous,
-		boolean autoUpdate,
-		boolean watermarkIcon,
+		Boolean notify,
+		Boolean anonymous,
+		Boolean autoUpdate,
+		Boolean watermarkIcon,
 		String testers,
 		String metrics,
 		String duration,
 		String comment,
 		String videoRecording,
 		String videoQuality,
-		String framesPerSecond
+		String framesPerSecond,
+	    String changelog
 	) {
 		this.testers = testers;
 		this.notify = notify;
@@ -209,6 +214,7 @@ public class Options {
 		this.videoRecording = videoRecording;
 		this.videoQuality = videoQuality;
 		this.framesPerSecond = framesPerSecond;
+		this.changelog = changelog;
 	}
 
 	@Override
@@ -225,6 +231,7 @@ public class Options {
 			", videoRecording='" + videoRecording + '\'' +
 			", videoQuality='" + videoQuality + '\'' +
 			", framesPerSecond='" + framesPerSecond + '\'' +
+			", changelog='" + changelog + '\'' +
 			'}';
 	}
 }

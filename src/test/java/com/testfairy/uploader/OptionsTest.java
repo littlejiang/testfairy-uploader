@@ -13,10 +13,10 @@ public class OptionsTest {
 	@Test
 	public void new_options_has_default_values() {
 		Options options = new Options.Builder().build();
-		assertEquals(true, options.notify);
-		assertEquals(false, options.anonymous);
-		assertEquals(false, options.autoUpdate);
-		assertEquals(false, options.watermarkIcon);
+		assertEquals(null, options.notify);
+		assertEquals(null, options.anonymous);
+		assertEquals(null, options.autoUpdate);
+		assertEquals(null, options.watermarkIcon);
 		assertEquals(null, options.testers);
 		assertEquals(null, options.metrics);
 		assertEquals(null, options.comment);
