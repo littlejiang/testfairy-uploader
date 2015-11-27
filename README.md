@@ -70,7 +70,7 @@ uploader.upload(new Listener() {
 License
 =======
 
-    Copyright 2013 TestFairy.
+    Copyright 2015 TestFairy.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
