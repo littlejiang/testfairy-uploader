@@ -32,7 +32,7 @@ artifacts {
 }
 
 signing {
-	required{ false }
+	required{ project.isRelease == 'true' }
 	sign configurations.archives
 }
 
@@ -51,7 +51,8 @@ uploadArchives {
 
 			pom.groupId = "com.testfairy"
 			pom.artifactId = "testfairy-uploader"
-			pom.version = "1.0.0-SNAPSHOT"
+			pom.version = VERSION + (project.isRelease == 'true' ? '' : '-SNAPSHOT')
+			println pom.version
 
 			repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
 				authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
