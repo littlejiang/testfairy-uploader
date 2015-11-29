@@ -1,27 +1,11 @@
 package com.testfairy.uploader;
 
-/*
-symbols_file Symbols mapping file.
-testers_groups Comma-separated list of tester groups to be notified on the new build. Or "all" to notify all testers.
-metrics Comma-separated list of metrics to record. View list below.
-max-duration Maximum session recording length, eg 20m or 1h. Default is "10m". Maximum 24h.
-video Video recording settings "on", "off" or "wifi" for recording video only when wifi is available. Default is "on".
-video-quality Video quality settings, "high", "medium" or "low". Default is "high".
-video-rate Video rate recording in frames per second, default is "1.0".
-icon-watermark Add a small watermark to app icon. Default is "off".
-comment Additional release notes for this upload. This text will be added to email notifications.
-auto-update Allows easy upgrade of all users to current version. Set to "on" to enable. Default is "off".
-notify "on" or "off"
-shake - Use this option to let the tester to shake their device and fill in a bug report that opens up.
-video-only-wifi - This option can be used in cases where you wish not to use the testers bandwidth.
-anonymous - When using this option, sessions are anonymous and account information is not collected from device.
-*/
-
 import org.apache.commons.io.IOUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Options {
 	public static class Builder {
@@ -30,6 +14,7 @@ public class Options {
 		private Boolean anonymous;
 		private Boolean autoUpdate;
 		private Boolean watermarkIcon;
+		private Boolean shake;
 		private Metrics metrics;
 		private String maxDuration;
 		private String comment;
@@ -128,6 +113,11 @@ public class Options {
 			return this;
 		}
 
+		public Builder shakeForBugReports(boolean shake) {
+			this.shake = shake;
+			return this;
+		}
+
 		public Options build() {
 			// TODO: Validate maxDurations
 			assertNotEmpty("maxDuration", this.maxDuration);
@@ -141,6 +131,7 @@ public class Options {
 				anonymous,
 				autoUpdate,
 				watermarkIcon,
+				shake,
 				testers,
 				metrics,
 				maxDuration,
@@ -180,6 +171,7 @@ public class Options {
 	final Boolean anonymous;
 	final Boolean autoUpdate;
 	final Boolean watermarkIcon;
+	final Boolean shake;
 	final String testers;
 	final String metrics;
 	final String maxDuration;
@@ -194,6 +186,7 @@ public class Options {
 		Boolean anonymous,
 		Boolean autoUpdate,
 		Boolean watermarkIcon,
+		Boolean shake,
 		String testers,
 		String metrics,
 		String duration,
@@ -208,6 +201,7 @@ public class Options {
 		this.anonymous = anonymous;
 		this.autoUpdate = autoUpdate;
 		this.watermarkIcon = watermarkIcon;
+		this.shake = shake;
 		this.metrics = metrics;
 		this.maxDuration = duration;
 		this.comment = comment;
@@ -217,6 +211,20 @@ public class Options {
 		this.changelog = changelog;
 	}
 
+	static String optional(Options options) {
+		if (options == null)
+			return null;
+
+		List<String> value = new ArrayList<>();
+		if (options.anonymous != null && options.anonymous)
+			value.add("anonymous");
+
+		if (options.shake != null && options.shake)
+			value.add("shake");
+
+		return value.isEmpty() ? null : Strings.join(value, ",");
+	}
+
 	@Override
 	public String toString() {
 		return "Options{" +
@@ -224,6 +232,7 @@ public class Options {
 			", anonymous=" + anonymous +
 			", autoUpdate=" + autoUpdate +
 			", watermarkIcon=" + watermarkIcon +
+			", shake=" + shake +
 			", testers='" + testers + '\'' +
 			", metrics='" + metrics + '\'' +
 			", maxDuration='" + maxDuration + '\'' +

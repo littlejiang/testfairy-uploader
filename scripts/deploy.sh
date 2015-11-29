@@ -16,7 +16,7 @@ elif [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
   echo "Skipping snapshot deployment: was pull request."
 elif [ "$TRAVIS_BRANCH" != "$MASTER_BRANCH" ]; then
   echo "Deploying to snapshot..."
-  ./gradlew uploadArchives -PisRelease=false --info
+  ./gradlew uploadArchives -PisRelease=false -PsonatypeUsername="${SONATYPE_USERNAME}" -PsonatypePassword="${SONATYPE_PASSWORD}"
   RETVAL=$?
   if [ $RETVAL -eq 0 ]; then
     echo 'Completed publish!'
@@ -26,7 +26,7 @@ elif [ "$TRAVIS_BRANCH" != "$MASTER_BRANCH" ]; then
   fi  
 else
   echo "Deploying to staging..."
-  ./gradlew uploadArchives -PisRelease=true -Psigning.keyId="${GPG_CLIENT_ID}" -Psigning.password="${GPG_PASSWORD}" -Psigning.secretKeyRingFile="/home/travis/build/testfairy/testfairy-uploader/scripts/secring.gpg" --info
+  ./gradlew uploadArchives -PisRelease=true -PsonatypeUsername="${SONATYPE_USERNAME}" -PsonatypePassword="${SONATYPE_PASSWORD}" -Psigning.keyId="${GPG_CLIENT_ID}" -Psigning.password="${GPG_PASSWORD}" -Psigning.secretKeyRingFile="/home/travis/build/testfairy/testfairy-uploader/scripts/secring.gpg"
   RETVAL=$?
   if [ $RETVAL -eq 0 ]; then
     echo 'Completed publish!'

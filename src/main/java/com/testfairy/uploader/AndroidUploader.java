@@ -1,6 +1,10 @@
 package com.testfairy.uploader;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.testfairy.uploader.Options.optional;
 
 public class AndroidUploader implements Uploader {
 	private final TestFairyService service;
@@ -67,11 +71,11 @@ public class AndroidUploader implements Uploader {
 				.addString("video-rate", options.framesPerSecond)
 				.addString("icon-watermark", value(options.watermarkIcon, "on", "off"))
 				.addString("changelog", options.changelog)
+				.addString("options", optional(options))
 				.addString("record-on-background", null)                                // TODO
 				.addString("screenshot-interval", null)                                 // TODO
 				.addString("advanced-options", null)                                    // TODO
 				.addString("data-only-wifi", null)                                      // TODO
-				.addString("shake", null)                                               // TODO
 				.addString("video-only-wifi", null);                                    // TODO
 		}
 
@@ -130,11 +134,11 @@ public class AndroidUploader implements Uploader {
 				.addString("notify", value(options.notify, "on", "off"))
 				.addString("auto-update", value(options.autoUpdate, "on", "off"))
 				.addString("changelog", options.changelog)
+				.addString("options", optional(options))
 				.addString("record-on-background", null)                                // TODO
 				.addString("screenshot-interval", null)                                 // TODO
 				.addString("advanced-options", null)                                    // TODO
 				.addString("data-only-wifi", null)                                      // TODO
-				.addString("shake", null)                                               // TODO
 				.addString("video-only-wifi", null);                                    // TODO
 		}
 

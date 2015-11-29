@@ -32,16 +32,20 @@ artifacts {
 }
 
 signing {
-	required{ project.isRelease == 'true' }
+	required{ isRelease() }
 	sign configurations.archives
 }
 
 def getRepositoryUsername() {
-	return hasProperty('SONATYPE_USERNAME') ? SONATYPE_USERNAME : System.getenv("SONATYPE_USERNAME")
+	return hasProperty('sonatypeUsername') ? sonatypeUsername : System.getenv("SONATYPE_USERNAME")
 }
 
 def getRepositoryPassword() {
-	return hasProperty('SONATYPE_PASSWORD') ? SONATYPE_PASSWORD : System.getenv("SONATYPE_PASSWORD")
+	return hasProperty('sonatypePassword') ? sonatypePassword : System.getenv("SONATYPE_PASSWORD")
+}
+
+def isRelease() {
+	return hasProperty('isRelease') ? isRelease == 'true' : false;
 }
 
 uploadArchives {
@@ -51,7 +55,7 @@ uploadArchives {
 
 			pom.groupId = "com.testfairy"
 			pom.artifactId = "testfairy-uploader"
-			pom.version = VERSION + (project.isRelease == 'true' ? '' : '-SNAPSHOT')
+			pom.version = VERSION + (isRelease() ? '' : '-SNAPSHOT')
 			println pom.version
 
 			repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {

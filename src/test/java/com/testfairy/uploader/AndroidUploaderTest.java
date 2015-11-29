@@ -108,6 +108,10 @@ public class AndroidUploaderTest {
 		assertEquals("changelog", allKeys.get(index));
 		assertEquals(null, allValues.get(index++));
 
+		assertEquals("options", allKeys.get(index));
+		assertEquals(null, allValues.get(index++));
+
+
 		assertEquals("record-on-background", allKeys.get(index));
 		assertEquals(null, allValues.get(index++));
 
@@ -118,9 +122,6 @@ public class AndroidUploaderTest {
 		assertEquals(null, allValues.get(index++));
 
 		assertEquals("data-only-wifi", allKeys.get(index));
-		assertEquals(null, allValues.get(index++));
-
-		assertEquals("shake", allKeys.get(index));
 		assertEquals(null, allValues.get(index++));
 
 		assertEquals("video-only-wifi", allKeys.get(index));

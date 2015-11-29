@@ -1,6 +1,8 @@
 package com.testfairy.uploader;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class IOSUploader implements Uploader {
 	private final TestFairyService service;
@@ -51,11 +53,11 @@ public class IOSUploader implements Uploader {
 					.addString("notify", value(options.notify, "on", "off"))
 					.addString("auto-update", value(options.autoUpdate, "on", "off"))
 					.addString("changelog", options.changelog)
+					.addString("options", Options.optional(options))
 					.addString("record-on-background", null)                        // TODO
 					.addString("screenshot-interval", null)                         // TODO: Is this different from video-rate
 					.addString("advanced-options", null)                            // TODO
 					.addString("data-only-wifi", null)                              // TODO
-					.addString("shake", null)                                       // TODO
 					.addString("video-only-wifi", null);                            // TODO
 			}
 

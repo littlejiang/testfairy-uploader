@@ -20,6 +20,8 @@ public class OptionsTest {
 		assertEquals(null, options.testers);
 		assertEquals(null, options.metrics);
 		assertEquals(null, options.comment);
+		assertEquals(null, options.shake);
+		assertEquals(null, options.changelog);
 		assertEquals("10m", options.maxDuration);
 		assertEquals("on", options.videoRecording);
 		assertEquals("high", options.videoQuality);
@@ -193,5 +195,78 @@ public class OptionsTest {
 			.build();
 
 		assertEquals(expectedMetrics, options.metrics);
+	}
+
+	@Test
+	public void setShake_sets_expected_value() {
+		Options options = new Options.Builder()
+			.shakeForBugReports(true)
+			.build();
+
+		assertEquals(true, options.shake);
+	}
+
+	@Test
+	public void setChangelog_sets_expected_value() {
+		String expectedChange = "changes";
+		Options options = new Options.Builder()
+			.setChangelog(expectedChange)
+			.build();
+
+		assertEquals(expectedChange, options.changelog);
+	}
+
+	@Test
+	public void optionals_returns_null_when_null() {
+		Options options = null;
+		assertEquals(null, Options.optional(options));
+	}
+
+	@Test
+	public void optionals_returns_null_when_empty() {
+		Options options = new Options.Builder().build();
+		assertEquals(null, Options.optional(options));
+	}
+
+	@Test
+	public void optionals_adds_anonymous_when_true() {
+		Options options = new Options.Builder()
+			.setAnonymous(true)
+			.build();
+		assertEquals("anonymous", Options.optional(options));
+	}
+
+	@Test
+	public void optionals_doesnt_add_anonymous_when_false() {
+		Options options = new Options.Builder()
+			.setAnonymous(false)
+			.build();
+		assertEquals(null, Options.optional(options));
+	}
+
+	@Test
+	public void optionals_adds_shake_when_true() {
+		Options options = new Options.Builder()
+			.shakeForBugReports(true)
+			.build();
+		assertEquals("shake", Options.optional(options));
+	}
+
+	@Test
+	public void optionals_doesnt_add_shake_when_false() {
+		Options options = new Options.Builder()
+			.shakeForBugReports(false)
+			.build();
+		assertEquals(null, Options.optional(options));
+	}
+
+	@Test
+	public void options_adds_options_in_expected_order() {
+		Options options = new Options.Builder()
+			.shakeForBugReports(true)
+			.setAnonymous(true)
+			.build();
+
+		assertEquals("anonymous,shake", Options.optional(options));
 	}
 }
