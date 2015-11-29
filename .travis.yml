@@ -10,6 +10,6 @@ before_install:
 - openssl aes-256-cbc -K $encrypted_1c143cc30b83_key -iv $encrypted_1c143cc30b83_iv -in scripts/secring.gpg.enc -out scripts/secring.gpg -d
 - # openssl aes-256-cbc -K $encrypted_1c143cc30b83_key -iv $encrypted_1c143cc30b83_iv -in scripts/pubring.gpg.enc -out scripts/pubring.gpg -d  
 script:
-- ./gradlew -PisRelease=false test
+- ./gradlew test -PisRelease=false
 after_success:
 - scripts/deploy.sh
