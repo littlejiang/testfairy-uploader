@@ -5,16 +5,18 @@ env:
   - secure: TAe5wd9yhWfASeUt0TtJqe6geJFjMwsYy4MHtBSJELL9DeEBxODnV1Q4rEZWZWf8IscR7nYLruzot5Dvgmxsr+4HEM3K1TLT0grxXThVfYiKVcbnWj7NHzOT2m67GtU63af0Cngj6lbqxGzIZu3EDnqVbfdBcK6opnUHnGGOJJ50Mxhn67NG3S6TZewSwzTtpzrlXV0zKKIPzJtmVOX+JYpKfrQmtY0XSv+Ihnge7boUY/q/eaPXGeu24NF2kVIvAbImvVCccbztXeD1APJzzh9B0cybtWt+hkvlTuDpoT5yby+ZCoTRBQdUheYoTDHul+QShms+K8ngNwIzfIzEYrtvJEl4D5JHsoXIMDPIjoYL5f9DrOQMzRzpaqnFXuW5vUnzBwu/Up6QxVWs4Kgl+YjcP0ItQmAvcjM835LfynHSJvFXDFGVM96cAhtyXo1e+/ITeRhmMFFTzLs+cQJHHlXLKctF3M/I2qcHNqIobUzfnfP3C7gQzMGzxvCgzFoeGghjqPYCKu5FHxwKh0pplU7u3b8egkElfVJt86IeSmgcqE9BFz1aoXfi7i+8VvKDUbIXUMJMze5pZPaX2JEH5QUY1ZIMbAQBDiZihhYYUWSRObgzKx1fC0bnwm+/FmEpNMBMqxrX70eWL7L0Tz/yOJ7qXNzLUhBX43+QmXK58/E=
   - secure: vGDIZWuleagYeCmoIIlYhyBt6z+fXy6vb1s2n3s52kqf8YmDd5xb4VG1Hz8f94zAR3BeSSAKywWoQagETBoxJYHzuACkjxrNbv1Y2wwh//dLcvc9KUlPdzhzi+rQbgaSQxpaj74sjiC2OrETcEhhzHIGnYOr5IFEtTsZ7b/QcTT/cdZ3IQNUeZx21+AXA/AfTACSrK5yRIi35EP+4tG1viMyIIzTKEmJRutze2aQJEFZpOyCz2reN4Z8+cplbdCMvrWhZCqLJio/4a1p7ZTxd7e35zrUgDiNff51WAkFESrP3QDMCZsYNls7bnfzmLBur9KI+eweID3MeGJNiSF99Cz358nLM5/awibOuiLeQDjGAJ6JSPV96ETqFjnew4LVph2dy0GvvYPSKb3jqKLpEOG3m7mGt4i7BbWKTSuwCe3p09KEmql4g+SWneQHi1RXtip0VgVWEFC87Rsp48JG8+I/GCURzPxjnPxRH0HbAhxPexJmT8/V+5B3K8el/fczr5WONprSrstTBN6PDRWLdCWicYybNW6N1rN1Azk2bh7wBAB4gs5JhAI9JlXU7RxZhcWIDOWVb0BDP8+Yrhco6rlmBQKqM3+e63VsJm/lQhUKEDJylSIlhSXVRuVYMNDP+yACaMhSC+FDE1QZZ4sCoZRcUVQwJ80c8UVVPBWBRqM=
   - secure: ku1WfgT8JTesGrrtr63Wy8v77D+YgP80NvZfuarxTJ8UO2stURX9NUsqqp/CQoftBzWgH0+1CyYTEdlAGy3hVbyHY0aUn6qbKieIkk9QptIVYz/fJtaVxE/cRZ7jR9Mq0EmayKAtTlpyHuMXLNgPYk4rqRNMlhZd3KVBa7k7XqX0s3sP6kB+DA9LSyVzGJdpODKANLvH8yhvuWDAaAocGnEYiOtPC7Fwc6uAoy/GaIr100DsqWpDhLbfZEBsC+l5uPFZjXqBxqsmQ5D5KM8Dybnj8JDuZ9xcP2K0AHX70SvCdmO9goLIrK2DodaznrCpFvd14TGa7CJphZaw/FwAiKcCJxkPeoL1y65n5lMojhdBD1jB9Adc09d5oBimTvhirUiGdtGkxiRRbiEwQqgKMyIMW8Dypx23nspqRzgmn8r/9OlL9ZcIAMOJAQaqxxGZoOWEg2KY6Z6USYRFE6PdJiXiFNaw856sFTANkALDOZQ6aWKDGTjCKjoz9ccm/H4H1oqyW9ULLr2usd7bicd3BniXosQecbgQ8YYo3S5DNctWXvBovGZj2HdoeOL/vRw0v6yMuupyPotJaApbalIsRLvNBRBcVy6lrCCk+VGzTlNd5/+gnK3go1V+j9BrUcrzA9KiUUbxPoGEfcUL1XCZr5Xvf4ji+oVi1/wfFrZb9Mk=
+  - secure: BomTaXVWUt2zNxlKDrT1NV24OXV88tMcizxe3xy8SkPuLGjQdqtymN2zjsWi4Vr3F0qZikARdUjJP0gX+me/x1r71gU8ibde4+tRp13/f90nmvFqP2nkmGBIQKj4TnRvppXNp/tUxV5MW4JV7NRijLV7eohvmtiiRlX1TVuqR+ZehkzQDjxyAkiWabZR/9aWbqzNuoFY/U5zfqJpVQz9QTufcFj/1FYgRnxV+sZBYaib8KtnfvyPiF0LRvwQskhPGIp32WXBdzS7u+cYWy354JWpYqwSHGnOoqHq2o3COWNL2c/a0HmsWtKRGaAVFnwA6gQAd5tlxXTHiXkRncWYru+7j02Z8Whx/HM4IiPLAhmnCNhu1C1xFPfYmSrq0TKKdgIrBGTB8vtElNssg7ja5Jj2VAMBJO2M8Ndqs5KNiRohG7Wrr9n4O/GYAyMunKWcWcTbIu8yaEv7lYv/XJqZGAjPizXKrfU95Vok94JOcraF3tB+g4fOn3Z1/sBFPCqIjl2YzPQSxZaGgbS70oSe1alY/dGWFAYSr44NhEtdCQYb9gBBeuA0hvcNOcwUXWr+2BwEFjbsm0IUJr5XtsBTlGdRge7CeOEBL6O0GHzYHgRGrKLe2tdo9WyT3/z95pchHZ1oWM3YSImzZyX3LaKXurTO97lHJR0U/Z1wxDEKdhA=
 before_install:
-  - openssl aes-256-cbc -K $encrypted_1c143cc30b83_key -iv $encrypted_1c143cc30b83_iv -in scripts/secring.gpg.enc -out scripts/secring.gpg -d
+- openssl aes-256-cbc -K $encrypted_1c143cc30b83_key -iv $encrypted_1c143cc30b83_iv
+  -in scripts/secring.gpg.enc -out scripts/secring.gpg -d
 script:
-  - ./gradlew test
+- ./gradlew cobertura coveralls
 before_deploy:
-  - TODAY=`date "+%Y%m%d"`
-  - REV=`git rev-parse HEAD | cut -c1-8`
-  - AGENT_VERSION="${TODAY}-${REV}"
-  - sed -i '' "s/public static final String BUILD = .*/public static final String BUILD = \"${AGENT_VERSION}\";/g" ./src/main/java/com/testfairy/uploader/Config.java
-  - sed -i '' "s/VERSION=.*/VERSION=${TRAVIS_TAG}/g" gradle.properties
+- TODAY=`date "+%Y%m%d"`
+- REV=`git rev-parse HEAD | cut -c1-8`
+- AGENT_VERSION="${TODAY}-${REV}"
+- sed -i '' "s/public static final String BUILD = .*/public static final String BUILD = \"${AGENT_VERSION}\";/g" ./src/main/java/com/testfairy/uploader/Config.java
+- sed -i '' "s/VERSION=.*/VERSION=${TRAVIS_TAG}/g" gradle.properties
 deploy:
   provider: script
   script: scripts/deploy.sh
@@ -22,4 +24,3 @@ deploy:
     tags: true
     repo: testfairy/testfairy-uploader
     branch: master
-
