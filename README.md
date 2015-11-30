@@ -1,6 +1,7 @@
 TestFairy Uploader
 ==================
 [![Build Status](https://travis-ci.org/testfairy/testfairy-uploader.png)](https://travis-ci.org/testfairy/testfairy-uploader)
+[![Coverage Status](https://coveralls.io/repos/testfairy/testfairy-uploader/badge.svg?branch=master&service=github)](https://coveralls.io/github/testfairy/testfairy-uploader?branch=master)
 
 A java library to simplify uploading Android and iOS build artifacts to [TestFairy](https://www.testfairy.com). The library allows you to define the metrics and options for any given session of your artifact.
 
