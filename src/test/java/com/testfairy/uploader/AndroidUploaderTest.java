@@ -32,7 +32,7 @@ public class AndroidUploaderTest {
 	@Test
 	public void upload_adds_api_key_to_request() {
 		AndroidUploader uploader = new AndroidUploader(
-			service, resigner, API_KEY, "PATH_TO_APK", null, false, null
+			service, resigner, API_KEY, "PATH_TO_APK", null, false, null, null
 		);
 
 		ArgumentCaptor<String> keyCaptor = ArgumentCaptor.forClass(String.class);
@@ -54,7 +54,7 @@ public class AndroidUploaderTest {
 	public void upload_adds_options_to_request() {
 		Options defaultOptions = new Options.Builder().build();
 		AndroidUploader uploader = new AndroidUploader(
-			service, resigner, API_KEY, "PATH_TO_APK", null, false, defaultOptions
+			service, resigner, API_KEY, "PATH_TO_APK", null, false, defaultOptions, null
 		);
 
 		ArgumentCaptor<String> keyCaptor = ArgumentCaptor.forClass(String.class);
@@ -62,11 +62,11 @@ public class AndroidUploaderTest {
 
 		uploader.upload(null);
 
-		verify(request, times(16)).addString(keyCaptor.capture(), valueCaptor.capture());
+		verify(request, times(15)).addString(keyCaptor.capture(), valueCaptor.capture());
 		List<String> allKeys = keyCaptor.getAllValues();
 		List<String> allValues = valueCaptor.getAllValues();
-		assertEquals(16, allKeys.size());
-		assertEquals(16, allValues.size());
+		assertEquals(15, allKeys.size());
+		assertEquals(15, allValues.size());
 
 		int index = 0;
 		assertEquals("api_key", allKeys.get(index));
@@ -74,9 +74,6 @@ public class AndroidUploaderTest {
 
 		assertEquals("instrumentation", allKeys.get(index));
 		assertEquals("off", allValues.get(index++));
-
-		assertEquals("metrics", allKeys.get(index));
-		assertEquals(null, allValues.get(index++));
 
 		assertEquals("max-duration", allKeys.get(index));
 		assertEquals("10m", allValues.get(index++));
@@ -120,7 +117,7 @@ public class AndroidUploaderTest {
 
 	public void upload_appends_file() {
 		AndroidUploader uploader = new AndroidUploader(
-			service, resigner, API_KEY, "PATH_TO_APK", null, false, null
+			service, resigner, API_KEY, "PATH_TO_APK", null, false, null, null
 		);
 
 		ArgumentCaptor<String> keyCaptor = ArgumentCaptor.forClass(String.class);
@@ -141,7 +138,7 @@ public class AndroidUploaderTest {
 	@Test
 	public void upload_notifies_started() {
 		AndroidUploader uploader = new AndroidUploader(
-			service, resigner, API_KEY, "PATH_TO_APK", null, false, null
+			service, resigner, API_KEY, "PATH_TO_APK", null, false, null, null
 		);
 
 		Listener listener = mock(Listener.class);
@@ -153,7 +150,7 @@ public class AndroidUploaderTest {
 	@Test
 	public void upload_notifies_completed() {
 		AndroidUploader uploader = new AndroidUploader(
-			service, resigner, API_KEY, "PATH_TO_APK", null, false, null
+			service, resigner, API_KEY, "PATH_TO_APK", null, false, null, null
 		);
 
 		Listener listener = mock(Listener.class);
@@ -165,7 +162,7 @@ public class AndroidUploaderTest {
 	@Test
 	public void upload_notifies_failures() {
 		AndroidUploader uploader = new AndroidUploader(
-			service, resigner, API_KEY, "PATH_TO_APK", null, false, null
+			service, resigner, API_KEY, "PATH_TO_APK", null, false, null, null
 		);
 
 		Listener listener = mock(Listener.class);

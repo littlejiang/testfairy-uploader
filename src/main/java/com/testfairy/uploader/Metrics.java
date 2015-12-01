@@ -5,6 +5,23 @@ import java.util.*;
 public class Metrics {
 	public static final Metrics DEFAULT_METRICS = new Metrics.Builder().addCpu().addMemory().addLogcat().build();
 
+	private static final String CPU = "cpu";
+	private static final String MEMORY = "memory";
+	private static final String NETWORK = "network";
+	private static final String PHONE_SIGNAL = "phone-signal";
+	private static final String LOGCAT = "logcat";
+	private static final String GPS = "gps";
+	private static final String BATTERY = "battery";
+	private static final String MIC = "mic";
+	private static final String WIFI = "wifi";
+	private static final String OPENGL = "opengl";
+	private static final List<String> SUPPORTED_ANROID_METRICS = Arrays.asList(
+		CPU, MEMORY, NETWORK, PHONE_SIGNAL, LOGCAT, GPS, BATTERY, MIC, WIFI, OPENGL
+	);
+	private static final List<String> SUPPORTED_IOS_METRICS = Arrays.asList(
+		CPU, MEMORY, LOGCAT
+	);
+
 	private final List<String> metrics;
 
 	Metrics(List<String> metrics) {
@@ -13,6 +30,23 @@ public class Metrics {
 
 	String asFormString() {
 		return Strings.join(metrics, ",");
+	}
+
+	static void validateForAndroid(Metrics metrics) {
+		validateSupport(metrics, "Android", SUPPORTED_ANROID_METRICS);
+	}
+
+	static void validateForIOS(Metrics metrics) {
+		validateSupport(metrics, "iOS", SUPPORTED_IOS_METRICS);
+	}
+
+	private static void validateSupport(Metrics metrics, String platform, List<String> supported) {
+		if (metrics == null) return;
+
+		for (String metric : metrics.metrics) {
+			if (! supported.contains(metric))
+				throw new IllegalStateException(metric + " is not supported when uploading " + platform + " builds");
+		}
 	}
 
 	@Override
@@ -26,52 +60,52 @@ public class Metrics {
 		private Set<String> metrics = new LinkedHashSet<String>(10);
 
 		public Builder addCpu() {
-			metrics.add("cpu");
+			metrics.add(CPU);
 			return this;
 		}
 
 		public Builder addMemory() {
-			metrics.add("memory");
+			metrics.add(MEMORY);
 			return this;
 		}
 
 		public Builder addNetwork() {
-			metrics.add("network");
+			metrics.add(NETWORK);
 			return this;
 		}
 
 		public Builder addPhoneSignal() {
-			metrics.add("phone-signal");
+			metrics.add(PHONE_SIGNAL);
 			return this;
 		}
 
 		public Builder addLogcat() {
-			metrics.add("logcat");
+			metrics.add(LOGCAT);
 			return this;
 		}
 
 		public Builder addGps() {
-			metrics.add("gps");
+			metrics.add(GPS);
 			return this;
 		}
 
 		public Builder addBattery() {
-			metrics.add("battery");
+			metrics.add(BATTERY);
 			return this;
 		}
 
 		public Builder addMic() {
-			metrics.add("mic");
+			metrics.add(MIC);
 			return this;
 		}
 
 		public Builder addWifi() {
-			metrics.add("wifi");
+			metrics.add(WIFI);
 			return this;
 		}
 
 		public Builder addOpenGl() {
-			metrics.add("opengl");
+			metrics.add(OPENGL);
 			return this;
 		}
 

@@ -18,7 +18,6 @@ public class Options {
 		private Boolean recordOnBackground;
 		private Boolean dataOnlyWifi;
 		private Boolean videoOnlyWifi;
-		private Metrics metrics;
 		private String maxDuration;
 		private String comment;
 		private String videoRecording;
@@ -45,11 +44,6 @@ public class Options {
 
 		public Builder notifyTesters(boolean notify) {
 			this.notify = notify;
-			return this;
-		}
-
-		public Builder setMetrics(Metrics metrics) {
-			this.metrics = metrics;
 			return this;
 		}
 
@@ -152,7 +146,6 @@ public class Options {
 			// TODO: Validate maxDurations
 			assertNotEmpty("maxDuration", this.maxDuration);
 			String testers = this.testers == null ? null : Strings.join(this.testers, ",");
-			String metrics = this.metrics == null ? null : this.metrics.asFormString();
 			if (framesPerSecond < 1.0f) throw new IllegalArgumentException("Frame rate cannot less than 1.0");
 			if (screenshotInterval != null && screenshotInterval <= 0) throw new IllegalArgumentException("Screen capture interval cannot be less than 0.0");
 
@@ -168,7 +161,6 @@ public class Options {
 				dataOnlyWifi,
 				videoOnlyWifi,
 				testers,
-				metrics,
 				maxDuration,
 				comment,
 				videoRecording,
@@ -213,7 +205,6 @@ public class Options {
 	final Boolean dataOnlyWifi;
 	final Boolean videoOnlyWifi;
 	final String testers;
-	final String metrics;
 	final String maxDuration;
 	final String comment;
 	final String videoRecording;
@@ -233,7 +224,6 @@ public class Options {
 		Boolean dataOnlyWifi,
 		Boolean videoOnlyWifi,
 		String testers,
-		String metrics,
 		String duration,
 		String comment,
 		String videoRecording,
@@ -252,7 +242,6 @@ public class Options {
 		this.autoUpdate = autoUpdate;
 		this.watermarkIcon = watermarkIcon;
 		this.shake = shake;
-		this.metrics = metrics;
 		this.maxDuration = duration;
 		this.comment = comment;
 		this.videoRecording = videoRecording;
@@ -319,7 +308,6 @@ public class Options {
 			", dataOnlyWifi=" + dataOnlyWifi +
 			", videoOnlyWifi=" + videoOnlyWifi +
 			", testers='" + testers + '\'' +
-			", metrics='" + metrics + '\'' +
 			", maxDuration='" + maxDuration + '\'' +
 			", comment='" + comment + '\'' +
 			", videoRecording='" + videoRecording + '\'' +

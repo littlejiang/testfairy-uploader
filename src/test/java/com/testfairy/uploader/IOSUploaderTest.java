@@ -30,7 +30,7 @@ public class IOSUploaderTest {
 	@Test
 	public void upload_adds_api_key_to_request() {
 		IOSUploader uploader = new IOSUploader(
-			service, API_KEY, "PATH_TO_IPA", null, null
+			service, API_KEY, "PATH_TO_IPA", null, null, null
 		);
 
 		ArgumentCaptor<String> keyCaptor = ArgumentCaptor.forClass(String.class);
@@ -52,7 +52,7 @@ public class IOSUploaderTest {
 	public void upload_adds_options_to_request() {
 		Options defaultOptions = new Options.Builder().build();
 		IOSUploader uploader = new IOSUploader(
-			service, API_KEY, "PATH_TO_IPA", null, defaultOptions
+			service, API_KEY, "PATH_TO_IPA", null, defaultOptions, null
 		);
 
 		ArgumentCaptor<String> keyCaptor = ArgumentCaptor.forClass(String.class);
@@ -60,18 +60,15 @@ public class IOSUploaderTest {
 
 		uploader.upload(null);
 
-		verify(request, times(15)).addString(keyCaptor.capture(), valueCaptor.capture());
+		verify(request, times(14)).addString(keyCaptor.capture(), valueCaptor.capture());
 		List<String> allKeys = keyCaptor.getAllValues();
 		List<String> allValues = valueCaptor.getAllValues();
-		assertEquals(15, allKeys.size());
-		assertEquals(15, allValues.size());
+		assertEquals(14, allKeys.size());
+		assertEquals(14, allValues.size());
 
 		int index = 0;
 		assertEquals("api_key", allKeys.get(index));
 		assertEquals(API_KEY, allValues.get(index++));
-
-		assertEquals("metrics", allKeys.get(index));
-		assertEquals(null, allValues.get(index++));
 
 		assertEquals("max-duration", allKeys.get(index));
 		assertEquals("10m", allValues.get(index++));
@@ -115,7 +112,7 @@ public class IOSUploaderTest {
 
 	public void upload_appends_file() {
 		IOSUploader uploader = new IOSUploader(
-			service, API_KEY, "PATH_TO_IPA", null, null
+			service, API_KEY, "PATH_TO_IPA", null, null, null
 		);
 
 		ArgumentCaptor<String> keyCaptor = ArgumentCaptor.forClass(String.class);
@@ -136,7 +133,7 @@ public class IOSUploaderTest {
 	@Test
 	public void upload_notifies_started() {
 		IOSUploader uploader = new IOSUploader(
-			service, API_KEY, "PATH_TO_IPA", null, null
+			service, API_KEY, "PATH_TO_IPA", null, null, null
 		);
 
 		Listener listener = mock(Listener.class);
@@ -148,7 +145,7 @@ public class IOSUploaderTest {
 	@Test
 	public void upload_notifies_completed() {
 		IOSUploader uploader = new IOSUploader(
-			service, API_KEY, "PATH_TO_IPA", null, null
+			service, API_KEY, "PATH_TO_IPA", null, null, null
 		);
 
 		Listener listener = mock(Listener.class);
@@ -160,7 +157,7 @@ public class IOSUploaderTest {
 	@Test
 	public void upload_notifies_failures() {
 		IOSUploader uploader = new IOSUploader(
-			service, API_KEY, "PATH_TO_IPA", null, null
+			service, API_KEY, "PATH_TO_IPA", null, null, null
 		);
 
 		Listener listener = mock(Listener.class);

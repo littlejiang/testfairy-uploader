@@ -14,6 +14,7 @@ public class AndroidUploader implements Uploader {
 	private final String proguardMapPath;
 	private final boolean enableInstrumentation;
 	private final Options options;
+	private final Metrics metrics;
 
 	AndroidUploader(
 		TestFairyService service,
@@ -22,7 +23,8 @@ public class AndroidUploader implements Uploader {
 		String apkPath,
 		String proguardMapPath,
 		boolean enableInstrumentation,
-		Options options
+		Options options,
+	    Metrics metrics
 	) {
 		this.service = service;
 		this.signer = signer;
@@ -31,6 +33,7 @@ public class AndroidUploader implements Uploader {
 		this.proguardMapPath = proguardMapPath;
 		this.enableInstrumentation = enableInstrumentation;
 		this.options = options;
+		this.metrics = metrics;
 	}
 
 	@Override
@@ -60,10 +63,13 @@ public class AndroidUploader implements Uploader {
 		if (! Strings.isEmpty(proguardMapPath))
 			request.addFile("proguard_file", new File(proguardMapPath));
 
+		if (this.metrics != null) {
+			request.addString("metrics", metrics.asFormString());
+		}
+
 		// Pre-signing
 		if (options != null) {
 			request
-				.addString("metrics", options.metrics)
 				.addString("max-duration", options.maxDuration)
 				.addString("comment", options.comment)
 				.addString("video", options.videoRecording)
@@ -118,9 +124,12 @@ public class AndroidUploader implements Uploader {
 		if (! Strings.isEmpty(proguardMapPath))
 			request.addFile("proguard_file", new File(proguardMapPath));
 
+		if (this.metrics != null) {
+			request.addString("metrics", metrics.asFormString());
+		}
+
 		if (options != null) {
 			request
-				.addString("metrics", options.metrics)
 				.addString("max-duration", options.maxDuration)
 				.addString("comment", options.comment)
 				.addString("video", options.videoRecording)
@@ -167,6 +176,7 @@ public class AndroidUploader implements Uploader {
 		private final String apiKey;
 
 		private Options options;
+		private Metrics metrics;
 		private String keystorePath;
 		private String storePassword;
 		private String keyPassword;
@@ -203,6 +213,11 @@ public class AndroidUploader implements Uploader {
 
 		public Builder setOptions(Options options) {
 			this.options = options;
+			return this;
+		}
+
+		public Builder setMetrics(Metrics metrics) {
+			this.metrics = metrics;
 			return this;
 		}
 
@@ -268,6 +283,7 @@ public class AndroidUploader implements Uploader {
 			if (! Strings.isEmpty(proguardMapPath) && ! new File(proguardMapPath).exists()) throw new IllegalArgumentException("Proguard map file was not found at " + proguardMapPath);
 			if (Strings.isEmpty(httpUserAgent)) httpUserAgent = Config.HTTP_USER_AGENT;
 			Options.validateForAndroid(options, enableInstrumentation);
+			Metrics.validateForAndroid(metrics);
 
 			TestFairyService service = new TestFairyService(
 				Config.SERVER_ENDPOINT,
@@ -316,7 +332,8 @@ public class AndroidUploader implements Uploader {
 				this.apkPath,
 				this.proguardMapPath,
 				this.enableInstrumentation,
-				this.options
+				this.options,
+				this.metrics
 			);
 		}
 	}

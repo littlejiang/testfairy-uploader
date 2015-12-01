@@ -22,7 +22,6 @@ public class OptionsTest {
 		assertEquals(null, options.recordOnBackground);
 		assertEquals(null, options.dataOnlyWifi);
 		assertEquals(null, options.videoOnlyWifi);
-		assertEquals(null, options.metrics);
 		assertEquals("10m", options.maxDuration);
 		assertEquals(null, options.comment);
 		assertEquals("on", options.videoRecording);
@@ -187,19 +186,6 @@ public class OptionsTest {
 			.build();
 
 		assertEquals("wifi", options.videoRecording);
-	}
-
-	@Test
-	public void setMetrics_sets_expected_value() {
-		Metrics metrics = Mockito.mock(Metrics.class);
-		String expectedMetrics = "wifi,cpu";
-		Mockito.when(metrics.asFormString()).thenReturn(expectedMetrics);
-
-		Options options = new Options.Builder()
-			.setMetrics(metrics)
-			.build();
-
-		assertEquals(expectedMetrics, options.metrics);
 	}
 
 	@Test

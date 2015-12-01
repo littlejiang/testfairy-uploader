@@ -10,19 +10,22 @@ public class IOSUploader implements Uploader {
 	private final String ipaPath;
 	private final String symbolsMapPath;
 	private final Options options;
+	private final Metrics metrics;
 
 	IOSUploader(
 		TestFairyService service,
 		String apiKey,
 		String ipaPath,
 		String symbolsMapPath,
-		Options options
+		Options options,
+	    Metrics metrics
 	) {
 		this.service = service;
 		this.apiKey = apiKey;
 		this.ipaPath = ipaPath;
 		this.symbolsMapPath = symbolsMapPath;
 		this.options = options;
+		this.metrics = metrics;
 	}
 
 	@Override
@@ -40,9 +43,12 @@ public class IOSUploader implements Uploader {
 			if (! Strings.isEmpty(symbolsMapPath))
 				request.addFile("symbols_file", new File(symbolsMapPath));
 
+			if (metrics != null) {
+				request.addString("metrics", metrics.asFormString());
+			}
+
 			if (options != null) {
 				request
-					.addString("metrics", options.metrics)
 					.addString("max-duration", options.maxDuration)
 					.addString("comment", options.comment)
 					.addString("video", options.videoRecording)
@@ -89,6 +95,7 @@ public class IOSUploader implements Uploader {
 	public static class Builder {
 		private final String apiKey;
 		private Options options;
+		private Metrics metrics;
 		private String httpUserAgent;
 
 		private String ipaPath;
@@ -106,6 +113,11 @@ public class IOSUploader implements Uploader {
 
 		public Builder setOptions(Options options) {
 			this.options = options;
+			return this;
+		}
+
+		public Builder setMetrics(Metrics metrics) {
+			this.metrics = metrics;
 			return this;
 		}
 
@@ -143,6 +155,7 @@ public class IOSUploader implements Uploader {
 			if (! Strings.isEmpty(symbolsPath) && ! new File(symbolsPath).exists()) throw new IllegalArgumentException("Symbols file was not found at " + symbolsPath);
 			if (Strings.isEmpty(httpUserAgent)) httpUserAgent = Config.HTTP_USER_AGENT;
 			Options.validateForIOS(options);
+			Metrics.validateForIOS(metrics);
 
 			return new IOSUploader(
 				new TestFairyService(
@@ -155,7 +168,8 @@ public class IOSUploader implements Uploader {
 				apiKey,
 				ipaPath,
 				symbolsPath,
-				options
+				options,
+				metrics
 			);
 		}
 	}

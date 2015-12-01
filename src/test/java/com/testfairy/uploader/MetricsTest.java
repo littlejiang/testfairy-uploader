@@ -117,4 +117,93 @@ public class MetricsTest {
 			.build();
 		assertEquals("cpu,memory", metrics.asFormString());
 	}
+
+	@Test
+	public void validateForIOS_ignores_null_metrics() {
+		Metrics.validateForIOS(null);
+	}
+
+	@Test
+	public void validateForIOS_suported_metrics() {
+		Metrics.validateForIOS(
+			new Metrics.Builder()
+				.addCpu().addMemory().addLogcat()
+				.build()
+		);
+	}
+
+	@Test(expected = IllegalStateException.class)
+	public void validateForIOS_throws_on_network_support() {
+		Metrics.validateForIOS(
+			new Metrics.Builder()
+				.addNetwork()
+				.build()
+		);
+	}
+
+	@Test(expected = IllegalStateException.class)
+	public void validateForIOS_throws_on_phone_signal_support() {
+		Metrics.validateForIOS(
+			new Metrics.Builder()
+				.addPhoneSignal()
+				.build()
+		);
+	}
+
+	@Test(expected = IllegalStateException.class)
+	public void validateForIOS_throws_on_gps_support() {
+		Metrics.validateForIOS(
+			new Metrics.Builder()
+				.addGps()
+				.build()
+		);
+	}
+
+	@Test(expected = IllegalStateException.class)
+	public void validateForIOS_throws_on_battery_support() {
+		Metrics.validateForIOS(
+			new Metrics.Builder()
+				.addBattery()
+				.build()
+		);
+	}
+
+	@Test(expected = IllegalStateException.class)
+	public void validateForIOS_throws_on_mic_support() {
+		Metrics.validateForIOS(
+			new Metrics.Builder()
+				.addMic()
+				.build()
+		);
+	}
+
+	@Test(expected = IllegalStateException.class)
+	public void validateForIOS_throws_on_wifi_support() {
+		Metrics.validateForIOS(
+			new Metrics.Builder()
+				.addWifi()
+				.build()
+		);
+	}
+
+	@Test(expected = IllegalStateException.class)
+	public void validateForIOS_throws_on_opengl_support() {
+		Metrics.validateForIOS(
+			new Metrics.Builder()
+				.addOpenGl()
+				.build()
+		);
+	}
+
+	@Test
+	public void validateForAndroid_ignores_null_metrics() {
+		Metrics.validateForAndroid(null);
+	}
+
+	@Test
+	public void validateForAndroid_supports_all_metrics() {
+		Metrics.validateForAndroid(new Metrics.Builder()
+			.addCpu().addMemory().addNetwork().addPhoneSignal().addLogcat().addGps().addBattery().addMic().addWifi().addOpenGl()
+		.build());
+	}
 }
