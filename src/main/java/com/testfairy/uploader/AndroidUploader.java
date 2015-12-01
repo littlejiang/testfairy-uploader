@@ -72,7 +72,7 @@ public class AndroidUploader implements Uploader {
 				.addString("icon-watermark", value(options.watermarkIcon, "on", "off"))
 				.addString("changelog", options.changelog)
 				.addString("options", optional(options))
-				.addString("screenshot-interval", null)                                 // TODO
+				.addString("screenshot-interval", options.screenInterval)
 				.addString("advanced-options", options.advancedOptions);
 		}
 
@@ -132,7 +132,7 @@ public class AndroidUploader implements Uploader {
 				.addString("auto-update", value(options.autoUpdate, "on", "off"))
 				.addString("changelog", options.changelog)
 				.addString("options", optional(options))
-				.addString("screenshot-interval", null)                                 // TODO
+				.addString("screenshot-interval", options.screenInterval)
 				.addString("advanced-options", options.advancedOptions);
 		}
 

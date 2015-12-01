@@ -30,6 +30,7 @@ public class OptionsTest {
 		assertEquals(null, options.changelog);
 		assertEquals(null, options.advancedOptions);
 		assertEquals("1.0", options.framesPerSecond);
+		assertEquals(null, options.screenInterval);
 	}
 
 	@Test
@@ -228,6 +229,16 @@ public class OptionsTest {
 			.build();
 
 		assertEquals(expectedChange, options.advancedOptions);
+	}
+
+	@Test
+	public void setScreenshotInterval_sets_expected_value() {
+		float value = 4.0f;
+		Options options = new Options.Builder()
+			.setScreenshotInterval(value)
+			.build();
+
+		assertEquals(String.valueOf(value), options.screenInterval);
 	}
 
 	@Test

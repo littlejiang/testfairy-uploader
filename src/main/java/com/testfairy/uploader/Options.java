@@ -26,6 +26,7 @@ public class Options {
 		private String changelog;
 		private String advancedOptions;
 		private float framesPerSecond;
+		private Float screenshotInterval;
 
 		public Builder() {
 			this.maxDuration = "10m";
@@ -79,6 +80,11 @@ public class Options {
 
 		public Builder setVideoRecordingRate(float fps) {
 			this.framesPerSecond = fps;
+			return this;
+		}
+
+		public Builder setScreenshotInterval(float screenshotInterval) {
+			this.screenshotInterval = screenshotInterval;
 			return this;
 		}
 
@@ -148,6 +154,8 @@ public class Options {
 			String testers = this.testers == null ? null : Strings.join(this.testers, ",");
 			String metrics = this.metrics == null ? null : this.metrics.asFormString();
 			if (framesPerSecond < 1.0f) throw new IllegalArgumentException("Frame rate cannot less than 1.0");
+			if (screenshotInterval != null && screenshotInterval <= 0) throw new IllegalArgumentException("Screen capture interval cannot be less than 0.0");
+
 			comment = checkIfFile(comment);
 
 			return new Options(
@@ -165,9 +173,10 @@ public class Options {
 				comment,
 				videoRecording,
 				videoQuality,
-				String.valueOf(framesPerSecond),
 				changelog,
-				advancedOptions
+				advancedOptions,
+				String.valueOf(framesPerSecond),
+				screenshotInterval == null ? null : String.valueOf(screenshotInterval)
 			);
 		}
 
@@ -209,9 +218,10 @@ public class Options {
 	final String comment;
 	final String videoRecording;
 	final String videoQuality;
-	final String framesPerSecond;
 	final String changelog;
 	final String advancedOptions;
+	final String framesPerSecond;
+	final String screenInterval;
 
 	Options(
 		Boolean notify,
@@ -228,9 +238,10 @@ public class Options {
 		String comment,
 		String videoRecording,
 		String videoQuality,
-		String framesPerSecond,
 	    String changelog,
-	    String advancedOptions
+		String advancedOptions,
+		String framesPerSecond,
+	    String screenInterval
 	) {
 		this.recordOnBackground = recordOnBackground;
 		this.dataOnlyWifi = dataOnlyWifi;
@@ -249,6 +260,7 @@ public class Options {
 		this.framesPerSecond = framesPerSecond;
 		this.changelog = changelog;
 		this.advancedOptions  = advancedOptions;
+		this.screenInterval = screenInterval;
 	}
 
 	static String optional(Options options) {
@@ -291,8 +303,10 @@ public class Options {
 			", comment='" + comment + '\'' +
 			", videoRecording='" + videoRecording + '\'' +
 			", videoQuality='" + videoQuality + '\'' +
-			", framesPerSecond='" + framesPerSecond + '\'' +
 			", changelog='" + changelog + '\'' +
+			", advancedOptions='" + advancedOptions + '\'' +
+			", framesPerSecond='" + framesPerSecond + '\'' +
+			", screenInterval='" + screenInterval + '\'' +
 			'}';
 	}
 }

@@ -54,7 +54,7 @@ public class IOSUploader implements Uploader {
 					.addString("auto-update", value(options.autoUpdate, "on", "off"))
 					.addString("changelog", options.changelog)
 					.addString("options", Options.optional(options))
-					.addString("screenshot-interval", null)                         // TODO: Is this different from video-rate
+					.addString("screenshot-interval", options.screenInterval)
 					.addString("advanced-options", options.advancedOptions);
 			}
 
