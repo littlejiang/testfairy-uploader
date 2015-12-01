@@ -15,12 +15,16 @@ public class Options {
 		private Boolean autoUpdate;
 		private Boolean watermarkIcon;
 		private Boolean shake;
+		private Boolean recordOnBackground;
+		private Boolean dataOnlyWifi;
+		private Boolean videoOnlyWifi;
 		private Metrics metrics;
 		private String maxDuration;
 		private String comment;
 		private String videoRecording;
 		private String videoQuality;
 		private String changelog;
+		private String advancedOptions;
 		private float framesPerSecond;
 
 		public Builder() {
@@ -113,8 +117,28 @@ public class Options {
 			return this;
 		}
 
+		public Builder setAdvancedOptions(String advancedOptions) {
+			this.advancedOptions = advancedOptions;
+			return this;
+		}
+
 		public Builder shakeForBugReports(boolean shake) {
 			this.shake = shake;
+			return this;
+		}
+
+		public Builder setDataOnlyWifi() {
+			this.dataOnlyWifi = true;
+			return this;
+		}
+
+//		public Builder setVideoOnlyWifi(boolean videoOnlyWifi) {
+//			this.videoOnlyWifi = videoOnlyWifi;
+//			return this;
+//		}
+
+		public Builder setRecordInBackground() {
+			this.recordOnBackground = true;
 			return this;
 		}
 
@@ -132,6 +156,9 @@ public class Options {
 				autoUpdate,
 				watermarkIcon,
 				shake,
+				recordOnBackground,
+				dataOnlyWifi,
+				videoOnlyWifi,
 				testers,
 				metrics,
 				maxDuration,
@@ -139,7 +166,8 @@ public class Options {
 				videoRecording,
 				videoQuality,
 				String.valueOf(framesPerSecond),
-				changelog
+				changelog,
+				advancedOptions
 			);
 		}
 
@@ -172,6 +200,9 @@ public class Options {
 	final Boolean autoUpdate;
 	final Boolean watermarkIcon;
 	final Boolean shake;
+	final Boolean recordOnBackground;
+	final Boolean dataOnlyWifi;
+	final Boolean videoOnlyWifi;
 	final String testers;
 	final String metrics;
 	final String maxDuration;
@@ -180,6 +211,7 @@ public class Options {
 	final String videoQuality;
 	final String framesPerSecond;
 	final String changelog;
+	final String advancedOptions;
 
 	Options(
 		Boolean notify,
@@ -187,6 +219,9 @@ public class Options {
 		Boolean autoUpdate,
 		Boolean watermarkIcon,
 		Boolean shake,
+		Boolean recordOnBackground,
+		Boolean dataOnlyWifi,
+		Boolean videoOnlyWifi,
 		String testers,
 		String metrics,
 		String duration,
@@ -194,8 +229,12 @@ public class Options {
 		String videoRecording,
 		String videoQuality,
 		String framesPerSecond,
-	    String changelog
+	    String changelog,
+	    String advancedOptions
 	) {
+		this.recordOnBackground = recordOnBackground;
+		this.dataOnlyWifi = dataOnlyWifi;
+		this.videoOnlyWifi = videoOnlyWifi;
 		this.testers = testers;
 		this.notify = notify;
 		this.anonymous = anonymous;
@@ -209,6 +248,7 @@ public class Options {
 		this.videoQuality = videoQuality;
 		this.framesPerSecond = framesPerSecond;
 		this.changelog = changelog;
+		this.advancedOptions  = advancedOptions;
 	}
 
 	static String optional(Options options) {
@@ -222,6 +262,15 @@ public class Options {
 		if (options.shake != null && options.shake)
 			value.add("shake");
 
+		if (options.recordOnBackground != null && options.recordOnBackground)
+			value.add("record-on-background");
+
+		if (options.dataOnlyWifi!= null && options.dataOnlyWifi)
+			value.add("data-only-wifi");
+
+		if (options.videoOnlyWifi != null && options.videoOnlyWifi)
+			value.add("video-only-wifi");
+
 		return value.isEmpty() ? null : Strings.join(value, ",");
 	}
 
@@ -233,6 +282,9 @@ public class Options {
 			", autoUpdate=" + autoUpdate +
 			", watermarkIcon=" + watermarkIcon +
 			", shake=" + shake +
+			", recordOnBackground=" + recordOnBackground +
+			", dataOnlyWifi=" + dataOnlyWifi +
+			", videoOnlyWifi=" + videoOnlyWifi +
 			", testers='" + testers + '\'' +
 			", metrics='" + metrics + '\'' +
 			", maxDuration='" + maxDuration + '\'' +

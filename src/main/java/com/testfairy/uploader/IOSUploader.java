@@ -54,11 +54,8 @@ public class IOSUploader implements Uploader {
 					.addString("auto-update", value(options.autoUpdate, "on", "off"))
 					.addString("changelog", options.changelog)
 					.addString("options", Options.optional(options))
-					.addString("record-on-background", null)                        // TODO
 					.addString("screenshot-interval", null)                         // TODO: Is this different from video-rate
-					.addString("advanced-options", null)                            // TODO
-					.addString("data-only-wifi", null)                              // TODO
-					.addString("video-only-wifi", null);                            // TODO
+					.addString("advanced-options", options.advancedOptions);
 			}
 
 			if (listener != null) listener.onProgress(50f);

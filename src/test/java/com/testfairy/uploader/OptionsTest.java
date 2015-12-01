@@ -13,18 +13,22 @@ public class OptionsTest {
 	@Test
 	public void new_options_has_default_values() {
 		Options options = new Options.Builder().build();
+		assertEquals(null, options.testers);
 		assertEquals(null, options.notify);
 		assertEquals(null, options.anonymous);
 		assertEquals(null, options.autoUpdate);
 		assertEquals(null, options.watermarkIcon);
-		assertEquals(null, options.testers);
-		assertEquals(null, options.metrics);
-		assertEquals(null, options.comment);
 		assertEquals(null, options.shake);
-		assertEquals(null, options.changelog);
+		assertEquals(null, options.recordOnBackground);
+		assertEquals(null, options.dataOnlyWifi);
+		assertEquals(null, options.videoOnlyWifi);
+		assertEquals(null, options.metrics);
 		assertEquals("10m", options.maxDuration);
+		assertEquals(null, options.comment);
 		assertEquals("on", options.videoRecording);
 		assertEquals("high", options.videoQuality);
+		assertEquals(null, options.changelog);
+		assertEquals(null, options.advancedOptions);
 		assertEquals("1.0", options.framesPerSecond);
 	}
 
@@ -217,6 +221,16 @@ public class OptionsTest {
 	}
 
 	@Test
+	public void setAdvancedOptions_sets_expected_value() {
+		String expectedChange = "changes";
+		Options options = new Options.Builder()
+			.setAdvancedOptions(expectedChange)
+			.build();
+
+		assertEquals(expectedChange, options.advancedOptions);
+	}
+
+	@Test
 	public void optionals_returns_null_when_null() {
 		Options options = null;
 		assertEquals(null, Options.optional(options));
@@ -261,12 +275,30 @@ public class OptionsTest {
 	}
 
 	@Test
+	public void optionals_adds_recordOnBackground_when_set() {
+		Options options = new Options.Builder()
+			.setRecordInBackground()
+			.build();
+		assertEquals("record-on-background", Options.optional(options));
+	}
+
+	@Test
+	public void optionals_adds_dataOnlyWifi_when_set() {
+		Options options = new Options.Builder()
+			.setDataOnlyWifi()
+			.build();
+		assertEquals("data-only-wifi", Options.optional(options));
+	}
+
+	@Test
 	public void options_adds_options_in_expected_order() {
 		Options options = new Options.Builder()
 			.shakeForBugReports(true)
 			.setAnonymous(true)
+			.setRecordInBackground()
+			.setDataOnlyWifi()
 			.build();
 
-		assertEquals("anonymous,shake", Options.optional(options));
+		assertEquals("anonymous,shake,record-on-background,data-only-wifi", Options.optional(options));
 	}
 }

@@ -62,11 +62,11 @@ public class AndroidUploaderTest {
 
 		uploader.upload(null);
 
-		verify(request, times(19)).addString(keyCaptor.capture(), valueCaptor.capture());
+		verify(request, times(16)).addString(keyCaptor.capture(), valueCaptor.capture());
 		List<String> allKeys = keyCaptor.getAllValues();
 		List<String> allValues = valueCaptor.getAllValues();
-		assertEquals(19, allKeys.size());
-		assertEquals(19, allValues.size());
+		assertEquals(16, allKeys.size());
+		assertEquals(16, allValues.size());
 
 		int index = 0;
 		assertEquals("api_key", allKeys.get(index));
@@ -111,20 +111,10 @@ public class AndroidUploaderTest {
 		assertEquals("options", allKeys.get(index));
 		assertEquals(null, allValues.get(index++));
 
-
-		assertEquals("record-on-background", allKeys.get(index));
-		assertEquals(null, allValues.get(index++));
-
 		assertEquals("screenshot-interval", allKeys.get(index));
 		assertEquals(null, allValues.get(index++));
 
 		assertEquals("advanced-options", allKeys.get(index));
-		assertEquals(null, allValues.get(index++));
-
-		assertEquals("data-only-wifi", allKeys.get(index));
-		assertEquals(null, allValues.get(index++));
-
-		assertEquals("video-only-wifi", allKeys.get(index));
 		assertEquals(null, allValues.get(index++));
 	}
 
