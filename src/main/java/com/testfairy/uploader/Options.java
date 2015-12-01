@@ -268,22 +268,43 @@ public class Options {
 			return null;
 
 		List<String> value = new ArrayList<>();
-		if (options.anonymous != null && options.anonymous)
+		if (isTrue(options.anonymous))
 			value.add("anonymous");
 
-		if (options.shake != null && options.shake)
+		if (isTrue(options.shake))
 			value.add("shake");
 
-		if (options.recordOnBackground != null && options.recordOnBackground)
+		if (isTrue(options.recordOnBackground))
 			value.add("record-on-background");
 
-		if (options.dataOnlyWifi!= null && options.dataOnlyWifi)
+		if (isTrue(options.dataOnlyWifi))
 			value.add("data-only-wifi");
 
-		if (options.videoOnlyWifi != null && options.videoOnlyWifi)
+		if (isTrue(options.videoOnlyWifi))
 			value.add("video-only-wifi");
 
 		return value.isEmpty() ? null : Strings.join(value, ",");
+	}
+
+	static void validateForAndroid(Options options, boolean enableInstrumentation) {
+		if (options == null) return;
+
+		if (!enableInstrumentation && isTrue(options.watermarkIcon))
+			throw new IllegalStateException("Watermarking app icon is only supported when instrumentation is enabled");
+	}
+
+	static void validateForIOS(Options options) {
+		if (options == null) return;
+
+		if (isTrue(options.anonymous))
+			throw new IllegalStateException("Anonymous is support is not available with iOS builds");
+
+		if (isTrue(options.watermarkIcon))
+			throw new IllegalStateException("Watermarking app icon support is not available with iOS builds");
+	}
+
+	private static boolean isTrue(Boolean value) {
+		return value != null && value;
 	}
 
 	@Override

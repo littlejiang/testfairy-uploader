@@ -312,4 +312,59 @@ public class OptionsTest {
 
 		assertEquals("anonymous,shake,record-on-background,data-only-wifi", Options.optional(options));
 	}
+
+	@Test
+	public void validateForIOS_ignores_null_options() {
+		Options.validateForIOS(null);
+	}
+
+	@Test(expected = IllegalStateException.class)
+	public void validateForIOS_throws_when_anonymous_is_enabled() {
+		Options.validateForIOS(new Options.Builder().setAnonymous(true).build());
+	}
+
+	@Test
+	public void validateForIOS_ignores_when_anonymous_is_disabled() {
+		Options.validateForIOS(new Options.Builder().setAnonymous(false).build());
+	}
+
+	@Test(expected = IllegalStateException.class)
+	public void validateForIOS_throws_when_watermarking_is_enabled() {
+		Options.validateForIOS(new Options.Builder().setIconWatermark(true).build());
+	}
+
+	@Test
+	public void validateForIOS_ignores_when_watermarking_is_disabled() {
+		Options.validateForIOS(new Options.Builder().setIconWatermark(false).build());
+	}
+
+	@Test
+	public void validateForAndroid_without_instrumentation_ignores_null_options() {
+		Options.validateForAndroid(null, false);
+	}
+
+	@Test
+	public void validateForAndroid_with_instrumentation_ignores_null_options() {
+		Options.validateForAndroid(null, true);
+	}
+
+	@Test(expected = IllegalStateException.class)
+	public void validateForAndroid_without_instrumentation_throws_when_watermarking_is_enabled() {
+		Options.validateForAndroid(new Options.Builder().setIconWatermark(true).build(), false);
+	}
+
+	@Test
+	public void validateForAndroid_with_instrumentation_ignores_when_watermarking_is_enabled() {
+		Options.validateForAndroid(new Options.Builder().setIconWatermark(true).build(), true);
+	}
+
+	@Test
+	public void validateForAndroid_without_instrumentation_ignores_when_watermarking_is_disabled() {
+		Options.validateForAndroid(new Options.Builder().setIconWatermark(false).build(), false);
+	}
+
+	@Test
+	public void validateForAndroid_with_instrumentation_ignores_when_watermarking_is_disabled() {
+		Options.validateForAndroid(new Options.Builder().setIconWatermark(false).build(), true);
+	}
 }

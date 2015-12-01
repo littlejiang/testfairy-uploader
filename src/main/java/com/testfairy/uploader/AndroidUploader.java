@@ -267,6 +267,7 @@ public class AndroidUploader implements Uploader {
 			if (! new File(apkPath).exists()) throw new IllegalArgumentException("APK was not found at " + apkPath);
 			if (! Strings.isEmpty(proguardMapPath) && ! new File(proguardMapPath).exists()) throw new IllegalArgumentException("Proguard map file was not found at " + proguardMapPath);
 			if (Strings.isEmpty(httpUserAgent)) httpUserAgent = Config.HTTP_USER_AGENT;
+			Options.validateForAndroid(options, enableInstrumentation);
 
 			TestFairyService service = new TestFairyService(
 				Config.SERVER_ENDPOINT,

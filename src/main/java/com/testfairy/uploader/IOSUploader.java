@@ -142,6 +142,7 @@ public class IOSUploader implements Uploader {
 			if (! new File(ipaPath).exists()) throw new IllegalArgumentException("IPA was not found at " + ipaPath);
 			if (! Strings.isEmpty(symbolsPath) && ! new File(symbolsPath).exists()) throw new IllegalArgumentException("Symbols file was not found at " + symbolsPath);
 			if (Strings.isEmpty(httpUserAgent)) httpUserAgent = Config.HTTP_USER_AGENT;
+			Options.validateForIOS(options);
 
 			return new IOSUploader(
 				new TestFairyService(
