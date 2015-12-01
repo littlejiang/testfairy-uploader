@@ -21,6 +21,7 @@ before_deploy:
 - sed -i'' "s/VERSION=.*/VERSION=${TRAVIS_TAG}/g" gradle.properties
 deploy:
   provider: script
+  skip_cleanup: true
   script: scripts/deploy.sh
   on:
     tags: true
