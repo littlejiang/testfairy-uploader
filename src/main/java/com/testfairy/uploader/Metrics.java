@@ -59,6 +59,18 @@ public class Metrics {
 	public static class Builder {
 		private Set<String> metrics = new LinkedHashSet<String>(10);
 
+		public Builder addAll(String all) {
+			if (Strings.isEmpty(all))
+				return this;
+
+			for (String metric : all.split(",")) {
+				if (! Strings.isEmpty(metric))
+					metrics.add(metric.trim());
+			}
+
+			return this;
+		}
+
 		public Builder addCpu() {
 			metrics.add(CPU);
 			return this;

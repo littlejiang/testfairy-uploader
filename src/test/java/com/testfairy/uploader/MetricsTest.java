@@ -14,6 +14,25 @@ public class MetricsTest {
 	}
 
 	@Test
+	public void all_ignores_null_input() {
+		assertEquals("", new Metrics.Builder().addAll(null).build().asFormString());
+	}
+
+	@Test
+	public void all_ignores_empty_input() {
+		assertEquals("", new Metrics.Builder().addAll("").build().asFormString());
+	}
+
+	@Test
+	public void can_add_all() {
+		assertEquals(
+			"cpu,memory,network,phone-signal,logcat,gps,battery,mic,wifi,opengl",
+			new Metrics.Builder().addAll(
+				"cpu,memory,network,phone-signal,logcat,gps,battery,mic,wifi,opengl"
+			).build().asFormString());
+	}
+
+	@Test
 	public void new_metrics_has_adds_no_values() {
 		Metrics metrics = new Metrics.Builder().build();
 		assertEquals("", metrics.asFormString());
