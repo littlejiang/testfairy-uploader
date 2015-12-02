@@ -17,7 +17,6 @@ public class Options {
 		private Boolean shake;
 		private Boolean recordOnBackground;
 		private Boolean dataOnlyWifi;
-		private Boolean videoOnlyWifi;
 		private String maxDuration;
 		private String comment;
 		private String videoRecording;
@@ -132,11 +131,6 @@ public class Options {
 			return this;
 		}
 
-//		public Builder setVideoOnlyWifi(boolean videoOnlyWifi) {
-//			this.videoOnlyWifi = videoOnlyWifi;
-//			return this;
-//		}
-
 		public Builder setRecordInBackground() {
 			this.recordOnBackground = true;
 			return this;
@@ -159,7 +153,6 @@ public class Options {
 				shake,
 				recordOnBackground,
 				dataOnlyWifi,
-				videoOnlyWifi,
 				testers,
 				maxDuration,
 				comment,
@@ -203,7 +196,6 @@ public class Options {
 	final Boolean shake;
 	final Boolean recordOnBackground;
 	final Boolean dataOnlyWifi;
-	final Boolean videoOnlyWifi;
 	final String testers;
 	final String maxDuration;
 	final String comment;
@@ -222,7 +214,6 @@ public class Options {
 		Boolean shake,
 		Boolean recordOnBackground,
 		Boolean dataOnlyWifi,
-		Boolean videoOnlyWifi,
 		String testers,
 		String duration,
 		String comment,
@@ -235,7 +226,6 @@ public class Options {
 	) {
 		this.recordOnBackground = recordOnBackground;
 		this.dataOnlyWifi = dataOnlyWifi;
-		this.videoOnlyWifi = videoOnlyWifi;
 		this.testers = testers;
 		this.notify = notify;
 		this.anonymous = anonymous;
@@ -268,9 +258,6 @@ public class Options {
 
 		if (isTrue(options.dataOnlyWifi))
 			value.add("data-only-wifi");
-
-		if (isTrue(options.videoOnlyWifi))
-			value.add("video-only-wifi");
 
 		return value.isEmpty() ? null : Strings.join(value, ",");
 	}
@@ -306,7 +293,6 @@ public class Options {
 			", shake=" + shake +
 			", recordOnBackground=" + recordOnBackground +
 			", dataOnlyWifi=" + dataOnlyWifi +
-			", videoOnlyWifi=" + videoOnlyWifi +
 			", testers='" + testers + '\'' +
 			", maxDuration='" + maxDuration + '\'' +
 			", comment='" + comment + '\'' +

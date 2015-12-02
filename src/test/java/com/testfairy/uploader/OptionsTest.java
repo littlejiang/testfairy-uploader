@@ -21,7 +21,6 @@ public class OptionsTest {
 		assertEquals(null, options.shake);
 		assertEquals(null, options.recordOnBackground);
 		assertEquals(null, options.dataOnlyWifi);
-		assertEquals(null, options.videoOnlyWifi);
 		assertEquals("10m", options.maxDuration);
 		assertEquals(null, options.comment);
 		assertEquals("on", options.videoRecording);
