@@ -140,7 +140,7 @@ public class Options {
 			// TODO: Validate maxDurations
 			assertNotEmpty("maxDuration", this.maxDuration);
 			String testers = this.testers == null ? null : Strings.join(this.testers, ",");
-			if (framesPerSecond < 1.0f) throw new IllegalArgumentException("Frame rate cannot less than 1.0");
+			if (framesPerSecond < 0) throw new IllegalArgumentException("Frame rate cannot less than 0.0");
 			if (screenshotInterval != null && screenshotInterval <= 0) throw new IllegalArgumentException("Screen capture interval cannot be less than 0.0");
 
 			comment = checkIfFile(comment);
