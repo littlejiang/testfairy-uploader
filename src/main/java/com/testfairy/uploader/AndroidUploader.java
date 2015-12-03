@@ -169,6 +169,7 @@ public class AndroidUploader implements Uploader {
 			", proguardMapPath='" + proguardMapPath + '\'' +
 			", enableInstrumentation=" + enableInstrumentation +
 			", options=" + options +
+			", metrics=" + metrics +
 			'}';
 	}
 

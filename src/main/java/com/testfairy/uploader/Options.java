@@ -32,7 +32,7 @@ public class Options {
 			this.framesPerSecond = 1.0f;
 			this.videoQuality = "high";
 		}
-
+		
 		public Builder addTesterGroup(String group) {
 			if (this.testers == null)
 				this.testers  = new ArrayList<String>();

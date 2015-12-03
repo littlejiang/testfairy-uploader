@@ -89,6 +89,7 @@ public class IOSUploader implements Uploader {
 			", ipaPath='" + ipaPath + '\'' +
 			", symbolsMapPath='" + symbolsMapPath + '\'' +
 			", options=" + options +
+			", metrics=" + metrics +
 			'}';
 	}
 
