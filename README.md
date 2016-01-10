@@ -87,6 +87,6 @@ License
 
 
 
- [1]: https://search.maven.org/remote_content?g=com.testfairy.testfairy%2Duploader&a=testfairy%2Duploader&v=LATEST
+ [1]: https://repo1.maven.org/maven2/com/testfairy/testfairy-uploader/1.1.2/testfairy-uploader-1.1.2.jar
  [2]: https://app.testfairy.com/settings/
  [snap]: https://oss.sonatype.org/content/repositories/snapshots/
