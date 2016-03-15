@@ -62,11 +62,11 @@ public class AndroidUploaderTest {
 
 		uploader.upload(null);
 
-		verify(request, times(15)).addString(keyCaptor.capture(), valueCaptor.capture());
+		verify(request, times(16)).addString(keyCaptor.capture(), valueCaptor.capture());
 		List<String> allKeys = keyCaptor.getAllValues();
 		List<String> allValues = valueCaptor.getAllValues();
-		assertEquals(15, allKeys.size());
-		assertEquals(15, allValues.size());
+		assertEquals(16, allKeys.size());
+		assertEquals(16, allValues.size());
 
 		int index = 0;
 		assertEquals("api_key", allKeys.get(index));
@@ -112,6 +112,9 @@ public class AndroidUploaderTest {
 		assertEquals(null, allValues.get(index++));
 
 		assertEquals("advanced-options", allKeys.get(index));
+		assertEquals(null, allValues.get(index++));
+
+		assertEquals("custom", allKeys.get(index));
 		assertEquals(null, allValues.get(index++));
 	}
 

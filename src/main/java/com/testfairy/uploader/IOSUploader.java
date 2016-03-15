@@ -1,8 +1,6 @@
 package com.testfairy.uploader;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 public class IOSUploader implements Uploader {
 	private final TestFairyService service;
@@ -61,7 +59,8 @@ public class IOSUploader implements Uploader {
 					.addString("changelog", options.changelog)
 					.addString("options", Options.optional(options))
 					.addString("screenshot-interval", options.screenInterval)
-					.addString("advanced-options", options.advancedOptions);
+					.addString("advanced-options", options.advancedOptions)
+					.addString("custom", options.customFields);
 			}
 
 			if (listener != null) listener.onProgress(50f);

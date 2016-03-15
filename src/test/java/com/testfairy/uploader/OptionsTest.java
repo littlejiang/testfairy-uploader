@@ -2,7 +2,6 @@ package com.testfairy.uploader;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
@@ -29,6 +28,7 @@ public class OptionsTest {
 		assertEquals(null, options.advancedOptions);
 		assertEquals("1.0", options.framesPerSecond);
 		assertEquals(null, options.screenInterval);
+		assertEquals(null, options.customFields);
 	}
 
 	@Test
@@ -214,6 +214,16 @@ public class OptionsTest {
 			.build();
 
 		assertEquals(expectedChange, options.advancedOptions);
+	}
+
+	@Test
+	public void setCustomFields_sets_expected_value() {
+		String expectedChange = "a=b,c=d";
+		Options options = new Options.Builder()
+			.setCustomFields(expectedChange)
+			.build();
+
+		assertEquals(expectedChange, options.customFields);
 	}
 
 	@Test

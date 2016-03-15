@@ -60,11 +60,11 @@ public class IOSUploaderTest {
 
 		uploader.upload(null);
 
-		verify(request, times(14)).addString(keyCaptor.capture(), valueCaptor.capture());
+		verify(request, times(15)).addString(keyCaptor.capture(), valueCaptor.capture());
 		List<String> allKeys = keyCaptor.getAllValues();
 		List<String> allValues = valueCaptor.getAllValues();
-		assertEquals(14, allKeys.size());
-		assertEquals(14, allValues.size());
+		assertEquals(15, allKeys.size());
+		assertEquals(15, allValues.size());
 
 		int index = 0;
 		assertEquals("api_key", allKeys.get(index));
@@ -107,6 +107,9 @@ public class IOSUploaderTest {
 		assertEquals(null, allValues.get(index++));
 
 		assertEquals("advanced-options", allKeys.get(index));
+		assertEquals(null, allValues.get(index++));
+
+		assertEquals("custom", allKeys.get(index));
 		assertEquals(null, allValues.get(index++));
 	}
 

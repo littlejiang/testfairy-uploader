@@ -1,8 +1,6 @@
 package com.testfairy.uploader;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.testfairy.uploader.Options.optional;
 
@@ -79,7 +77,8 @@ public class AndroidUploader implements Uploader {
 				.addString("changelog", options.changelog)
 				.addString("options", optional(options))
 				.addString("screenshot-interval", options.screenInterval)
-				.addString("advanced-options", options.advancedOptions);
+				.addString("advanced-options", options.advancedOptions)
+				.addString("custom", options.customFields);
 		}
 
 		if (listener != null) listener.onProgress(33f);
@@ -142,7 +141,8 @@ public class AndroidUploader implements Uploader {
 				.addString("changelog", options.changelog)
 				.addString("options", optional(options))
 				.addString("screenshot-interval", options.screenInterval)
-				.addString("advanced-options", options.advancedOptions);
+				.addString("advanced-options", options.advancedOptions)
+				.addString("custom", options.customFields);
 		}
 
 		if (listener != null) listener.onProgress(50f);

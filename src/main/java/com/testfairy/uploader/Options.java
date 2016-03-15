@@ -23,6 +23,7 @@ public class Options {
 		private String videoQuality;
 		private String changelog;
 		private String advancedOptions;
+		private String custom;
 		private float framesPerSecond;
 		private Float screenshotInterval;
 
@@ -121,6 +122,11 @@ public class Options {
 			return this;
 		}
 
+		public Builder setCustomFields(String fields) {
+			this.custom = fields;
+			return this;
+		}
+
 		public Builder shakeForBugReports(boolean shake) {
 			this.shake = shake;
 			return this;
@@ -160,6 +166,7 @@ public class Options {
 				videoQuality,
 				changelog,
 				advancedOptions,
+				custom,
 				String.valueOf(framesPerSecond),
 				screenshotInterval == null ? null : String.valueOf(screenshotInterval)
 			);
@@ -203,6 +210,7 @@ public class Options {
 	final String videoQuality;
 	final String changelog;
 	final String advancedOptions;
+	final String customFields;
 	final String framesPerSecond;
 	final String screenInterval;
 
@@ -221,6 +229,7 @@ public class Options {
 		String videoQuality,
 	    String changelog,
 		String advancedOptions,
+		String customFields,
 		String framesPerSecond,
 	    String screenInterval
 	) {
@@ -236,6 +245,7 @@ public class Options {
 		this.comment = comment;
 		this.videoRecording = videoRecording;
 		this.videoQuality = videoQuality;
+		this.customFields = customFields;
 		this.framesPerSecond = framesPerSecond;
 		this.changelog = changelog;
 		this.advancedOptions  = advancedOptions;
@@ -246,7 +256,7 @@ public class Options {
 		if (options == null)
 			return null;
 
-		List<String> value = new ArrayList<>();
+		List<String> value = new ArrayList<String>();
 		if (isTrue(options.anonymous))
 			value.add("anonymous");
 
@@ -300,6 +310,7 @@ public class Options {
 			", videoQuality='" + videoQuality + '\'' +
 			", changelog='" + changelog + '\'' +
 			", advancedOptions='" + advancedOptions + '\'' +
+			", customFields='" + customFields + '\'' +
 			", framesPerSecond='" + framesPerSecond + '\'' +
 			", screenInterval='" + screenInterval + '\'' +
 			'}';
