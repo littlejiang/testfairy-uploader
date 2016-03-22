@@ -273,7 +273,7 @@ public class AndroidUploader implements Uploader {
 			return this;
 		}
 
-		public void setHttpUserAgent(String httpUserAgent) {
+		public Builder setHttpUserAgent(String httpUserAgent) {
 			this.httpUserAgent = httpUserAgent;
 			return this;
 		}
