@@ -279,7 +279,7 @@ public class AndroidUploader implements Uploader {
 		}
 
 		public AndroidUploader build() {
-			if (Strings.isEmpty(apiKey)) throw new IllegalArgumentException("API Key is empty. Please goto to https://app.testfairy.com/settings/ and use the API Key found there");
+			if (Strings.isEmpty(apiKey)) throw new IllegalArgumentException("API Key is empty. Please go to https://app.testfairy.com/settings/ and use the API Key found there");
 			if (Strings.isEmpty(apkPath)) throw new IllegalArgumentException("Path to APK is empty. Call setApkPath with a valid path to APK.");
 			if (! new File(apkPath).exists()) throw new IllegalArgumentException("APK was not found at " + apkPath);
 			if (! Strings.isEmpty(proguardMapPath) && ! new File(proguardMapPath).exists()) throw new IllegalArgumentException("Proguard map file was not found at " + proguardMapPath);
